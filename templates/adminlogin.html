@@ -13,11 +13,8 @@
   <title>로그인 페이지</title>
 </head>
 <body>
-  <a id="adminlogin-text" href="/templates/adminlogin.html">
-    관리자 로그인
-  </a>
 <div id="login-form">
-  <div id="login-title">유저 로그인</div>
+  <div id="login-title">관리자 로그인</div>
 
   <div class="login-id-label">아이디</div>
   <input id="username" type="text" name="username" class="login-input-box">
@@ -25,10 +22,13 @@
   <div class="login-id-label">비밀번호</div>
   <input id="password" type="password" name="password" class="login-input-box">
 
+  <div class="login-id-label">관리자암호</div>
+  <input id="adminKey" type="adminKey" name="adminKey" class="login-input-box">
+
   <button id="login-id-submit" onclick="login()">로그인</button>
 
-  <button id="login-id-btn" onclick="location.href='http://127.0.0.1:5500/templates/signup.html'">
-    회원 가입하기
+  <button id="login-id-btn" onclick="location.href='http://127.0.0.1:5500/templates/adminsignup.html'">
+    관리자 회원 가입하기
   </button>
 
   <div id="login-failed" style="display:none" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>

@@ -1,0 +1,113 @@
+* {
+    font-family: 'Gowun Dodum', sans-serif;
+  }
+  .header{
+    height: 255px;
+    box-sizing: border-box;
+    background-color: aliceblue;
+    text-align: center;
+    padding-top: 80px;
+    font-size: 45px;
+    font-weight: bold;
+  }
+
+  .body {
+    padding: 10px 10px 10px 10px;
+    margin:0px;
+  }
+
+  .button{
+    color: white;
+    border-radius: 4px;
+  }
+
+  .nav{
+    width: 530px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .nav div{
+    cursor:pointer;
+  }
+
+  #header-title-login-user{
+    font-size: 36px;
+    letter-spacing: -1.08px;
+  }
+
+  #header-title-petfam{
+    margin-top: 20px;
+    font-size: 45px;
+    letter-spacing: 1.1px;
+  }
+
+  #sign-text{
+    position:absolute;
+    top:48px;
+    right: 110px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.36px;
+    text-align: center;
+  }
+
+  #login-text{
+    position:absolute;
+    top:48px;
+    right:50px;
+    font-size: 18px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.36px;
+    text-align: center;
+  }
+
+  #home-text{
+    position:absolute;
+    top:48px;
+    left:50px;
+    font-size: 18px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.36px;
+    text-align: center;
+  }
+  
+  #sidebar-text{
+    height: 300px;
+    margin-top: 0px;
+    margin-right: 50px;
+  }
+
+  .posts{
+    margin-top: 50px;
+  }
+
+  .table {
+    float: left;
+    max-width: 900px;
+  }
+  
+  .table1 {
+    width: 200px;
+  }
+  
+  .table2 {
+    width: 500px;
+  }
+  
+  .table3 {
+    width: 200px;
+  }

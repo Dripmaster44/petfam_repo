@@ -107,7 +107,19 @@
   .table2 {
     width: 500px;
   }
+
+  .table22 {
+    width: 500px;
+  }
+  
+  .table22:hover {
+    cursor: pointer;
+  }
   
   .table3 {
     width: 200px;
+  }
+
+  .table4{
+    width: 100px;
   }

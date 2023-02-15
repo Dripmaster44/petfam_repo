@@ -12,6 +12,50 @@
           crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+  <script>
+    jQuery(document).ready(function($)) {
+      getUserMe();
+    }
+
+    function getUserMe() {
+      const auth = getToken();
+      var settings = {
+        "url": "http://localhost:8080/users/profiles",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+          "Authorization": xhr.setRequestHeader("Authorization", auth);
+        },
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        console.log(response.nickname);
+        $('#welcome-text').empty();
+        $('#welcome-text').append(response.nickname+'님 반갑습니다.');
+      });
+
+      function  getToken() {
+        let cName = 'Authorization' + '=';
+        let cookieData = document.cookie;
+        let cookie = cookieData.indexOf('Authorization');
+        let auth = '';
+        if(cookie !== -1){
+            cookie += cName.length;
+            let end = cookieData.indexOf(';', cookie);
+            if(end === -1)end = cookieData.length;
+            auth = cookieData.substring(cookie, end);
+        }
+    
+        // kakao 로그인 사용한 경우 Bearer 추가
+        if(auth.indexOf('Bearer') === -1 && auth !== ''){
+            auth = 'Bearer ' + auth;
+        }
+    
+        return auth;
+    }
+    }
+  </script>
   <title>반려동물 자랑 사이트, petfam</title>
 </head>
 <body>
@@ -35,7 +79,7 @@
         Petfam(펫팸)
       </div>
       <a id="welcome-text">
-        님 환영합니다.
+        ...님 환영합니다.
       </a>
       <a id="sign-text">
         로그아웃

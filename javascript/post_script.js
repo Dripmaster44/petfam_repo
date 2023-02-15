@@ -22,7 +22,7 @@ function petboast() {
             let temp_html =`
             <tr>
             <th class="table1">${id}</th>
-            <th class="table22" data-post-id="${id}"><a href="posts_detail.html?id=${id}">${title}</a></th>
+            <th class="table22" data-post-id="${id}"><a class="table222" href="posts_detail.html?id=${id}">${title}</a></th>
             <th class="table3">${writer}</th>
             <th class="table4">${likes}</th>
             </tr>`
@@ -33,12 +33,6 @@ function petboast() {
         }
     });
     }
-
-  // $(document).on('click', '.table22', function() {
-  //   localStorage.setItem('postId', id);
-  //   console.log(id);
-  //   window.open("/templates/posts_detail.html");
-  // });
     
   //    function save_post() {
     //   let title = $('title').val()

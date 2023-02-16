@@ -100,9 +100,10 @@
   }
   
   #sidebar-text{
-    height: 300px;
-    margin-top: 0px;
+    height: 700px;
+    margin-top: 100px;
     margin-right: 50px;
+    justify-content: flex-start;
   }
 
   .posts{
@@ -121,7 +122,30 @@
   .table2 {
     width: 500px;
   }
+
+  .table22 {
+    width: 500px;
+  }
+
+  .table22:hover {
+    cursor: pointer;
+  }
+
+  .table222 {
+    color:black;
+    text-decoration-line: none;
+  }
   
   .table3 {
     width: 200px;
   }
+
+  .table4{
+    width: 100px;
+  }
+
+  
+
+
+  
+  

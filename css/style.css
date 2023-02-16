@@ -130,59 +130,7 @@
     width: 100px;
   }
 
-  .post-detail-post {
-    width: 900px;
-    float: left;
-    border: 0.5px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  .post-detail-comment{
-    width: 880px;
-    float: left;
-    border: 0.5px solid #ddd;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-left: 20px;
-    border-left: 2px solid #ccc;
-  }
-
-  .post-detail-comment-writer{
-    width: 100px;
-  }
-
-  .post-detail-comment-content{
-    width: 600px;
-  }
-
-  .post-detail-comment-likes{
-    width: 50px;
-  }
-
-  .post-detail-reComment{
-    width: 840px;
-    float: left;
-    border: 0.5px solid #ddd;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-left: 60px;
-    border-left: 2px solid #ccc;
-  }
-
-  .post-detail-reComment-writer{
-    width: 100px;
-  }
-
-  .post-detail-reComment-content{
-    width: 550px;
-  }
-
-  .post-detail-reComment-likes{
-    width: 50px;
-  }
+  
 
 
   

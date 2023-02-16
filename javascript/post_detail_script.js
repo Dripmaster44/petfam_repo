@@ -23,12 +23,23 @@ function petboast_detail() {
         let likes = response['likes']
         let comments = response['comments']
         let temp_html = `<div class="post-detail-post">
-        <li>${writer}</li>
-        <li>${title}</li>
-        <li>${content}</li>
-        <li>${image}</li>
-        <li>${likes}</li>
-        </div>`
+        <div class="post-header">
+          <div class="post-title">${title}</div>
+          <div class="post-info">
+            <span class="post-writer">${writer}</span>
+          </div>
+        </div>
+        <div class="post-content">
+          <div class="post-image">${image}</div>
+          <div class="post-text">${content}</div>
+        </div>
+        <div class="post-footer">
+          <div class="post-likes">추천 ${likes}</div>
+          <button type="button" class="btn btn-outline-primary">좋아요</button>
+        </div>
+      </div>
+      `
+      // <span class="post-date">2023-02-16</span> writer 밑에 넣기
         $('#post-detail').append(temp_html);
         for(let i=0; i< response.comments.length; i++){
             const comment = response.comments[i];
@@ -67,7 +78,7 @@ function petboast_detail() {
         const postId = response.id;
         const commentId = $(this).closest('.post-detail-comment').attr('id');
         $.ajax({
-            url: `http://localhost:8080/posts/${postId}/comments/${commentId}/like`,
+            url: 'http://localhost:8080/comments/' + commentId + '/like',
             type: 'POST',
             data: {},
             contentType: "application/json;",

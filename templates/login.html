@@ -64,16 +64,10 @@
       data: JSON.stringify({username: username, password: password}),
       success: function (response, status, xhr) {
         if(response === 'success') {
-
-          document.cookie =
-              'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/';
-          window.localStorage.setItem("Authorization",xhr.getResponseHeader('Authorization'))
-          
+        document.cookie =
+              'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/'; 
           document.cookie = 
               'Refresh_authorization' + '=' + xhr.getResponseHeader('Refresh_authorization') + ';path=/';
-
-
-          
               
           window.location.href = 'http://127.0.0.1:5500/templates/index_login.html';
         } else {

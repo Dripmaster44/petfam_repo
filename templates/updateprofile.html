@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="../css/style.css"/>
   <script>
     window.onload = function() {
-      getUserMe();
+      getUserNickname();
     };
 
     function profileUpdate() {
@@ -47,67 +47,6 @@
       });
     }
 
-
-
-    function getUserMe() {
-      var settings = {
-        "url": "http://localhost:8080/users/profiles",
-        "method": "GET",
-        "timeout": 0,
-        "headers": {
-          "Authorization": window.localStorage.getItem('Authorization')
-        },
-      };
-      console.log(settings)
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        console.log(response.nickname);
-        $('#welcome-text').empty();
-        $('#welcome-text').append(response.nickname+'님 반갑습니다.');
-      });
-
-    }
-
-    function logout() {
-      var settings = {
-        "url": "http://localhost:8080/users/signout",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Authorization": window.localStorage.getItem('Authorization'),
-          "Refresh_authorization": window.localStorage.getItem('Refresh_authorization')
-        },
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if (response == '로그아웃이 되었습니다.'){
-          alert('로그아웃')
-        } else {
-          alert('로그아웃 실패')
-        }
-      });
-    };
-
-    function refresh() {
-      var settings = {
-        "url": "http://localhost:8080/users/refresh",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Authorization": window.localStorage.getItem('Authorization'),
-          "Refresh_authorization": window.localStorage.getItem('Refresh_authorization')
-        },
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if (response == "로그인이 연장되었습니다."){
-          alert('로그인연장')
-        }
-      });
-      
-    };
   </script>
   <title>반려동물 자랑 사이트, petfam</title>
 </head>
@@ -171,5 +110,6 @@
 </div>
 
 <button type="button" class="btn btn-dark" id = "profile-update-button1" onclick = "profileUpdate()">수정완료</button>
+<script src="../javascript/user.js"></script>
 </body>
 </html>

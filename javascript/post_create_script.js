@@ -9,12 +9,17 @@ $(document).ready(function() {
   
       // AJAX 요청 보내기
       $.ajax({
-        url: 'http://localhost:8080/posts/',
+        url: 'http://localhost:8080/posts',
         type: 'POST',
-        data: {title: title, content: content, image: image},
+        data: JSON.stringify({title: title, image: image, content: content}),
+        headers: {
+          'Content-Type': 'application/json' // 서버에서 지원하는 타입으로 변경
+        },
         success: function(data) {
           // 서버로부터 성공적인 응답을 받았을 때 실행할 코드
           console.log('글이 성공적으로 작성되었습니다!');
+          // 페이지 이동
+          location.href = 'http://127.0.0.1:5500/templates/posts.html';
         },
         error: function(jqXHR, textStatus, errorThrown) {
           // 서버로부터 오류 응답을 받았을 때 실행할 코드

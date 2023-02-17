@@ -50,12 +50,12 @@ body {
   height: 159px;
 }
 
-.search-itemDto-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+.search-itemDto-left img {
+  width: 159px;
+  height: 159px;
 }
+
+
 
 .search-itemDto-center div {
   width: 280px;

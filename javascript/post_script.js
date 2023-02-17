@@ -52,21 +52,3 @@ function changePage(pageNum) {
   currentPage = pageNum;
   petboast();
 }
-    
-    
-  //    function save_post() {
-    //   let title = $('title').val()
-    //   let content = $('content').val()
-    //   let image = $('image').val()
-    //   $.ajax({
-    //         type: 'POST',
-    //         url: '/posts',
-    //         contentType: 'application/json',
-    //         data: {title: title, content: content, image: image},
-    //         success: function (response) {
-    //           alert(response['등록되었습니다.'])
-    //           window.location.replace('/posts')
-    //         }
-    //       }
-    //   );
-    // }

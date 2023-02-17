@@ -58,7 +58,7 @@ function petboast_detail() {
           <div class="post-title">${title}</div>
           <div class="post-info">
             <span class="post-writer">${writer}</span>
-            <span type="button"><a href="/templates/updatePost.html?id=${id}">수정</a></span>
+            <span type="button"><a href="/templates/updatePost.html?id=${id}" style="text-decoration-line: none; color:#555;">수정</a></span>
             <span type="button" onclick="deletePost()">삭제</span>
           </div>
         </div>
@@ -109,24 +109,16 @@ function petboast_detail() {
 
     // 게시글 삭제
     function deletePost(){
-      // 쿠키에 있는 토큰 헤더로 실어보내기
-    const token = getToken('token'); // bearer 토큰 값 가져오기
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-    };
-    fetch('http://127.0.0.1:5500/templates/posts_detail.html?id=' + id, { headers })
-      .then(response => {
-        // 응답 처리
-      })
-      .catch(error => {
-        // 에러 처리
-      });
-      
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
+
+    const auth = getToken();
     $.ajax({
       url: 'http://localhost:8080/posts/' + id,
       type: 'DELETE',
+      "beforeSend": function(xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+      },
       success: function(result) {
         console.log('DELETE request succeeded.');
         // handle success

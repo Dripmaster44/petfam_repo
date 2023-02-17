@@ -3,6 +3,37 @@ $(document).ready(function () {
     petboast_detail();
 })
 
+// 쿠키에 있는 토큰 헤더로 실어보내기
+const token = getToken('token'); // bearer 토큰 값 가져오기
+const headers = {
+  'Authorization': `Bearer ${token}`,
+};
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+fetch('http://127.0.0.1:5500/templates/posts_detail.html?id=' + id, { headers })
+  .then(response => {
+    // 응답 처리
+  })
+  .catch(error => {
+    // 에러 처리
+  });
+
+function getToken() {
+let cName = 'Authorization' + '=';
+let cookieData = document.cookie;
+let cookie = cookieData.indexOf('Authorization');
+let auth = '';
+if(cookie !== -1){
+    cookie += cName.length;
+    let end = cookieData.indexOf(';', cookie);
+    if(end === -1)end = cookieData.length;
+    auth = cookieData.substring(cookie, end);
+}
+
+return auth;
+}
+
 // 세부 페이지 접속 시 GET 요청으로 게시글 data반환
 function petboast_detail() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -27,10 +58,12 @@ function petboast_detail() {
           <div class="post-title">${title}</div>
           <div class="post-info">
             <span class="post-writer">${writer}</span>
+            <span type="button"><a href="/templates/updatePost.html?id=${id}">수정</a></span>
+            <span type="button" onclick="deletePost()">삭제</span>
           </div>
         </div>
         <div class="post-content">
-          <div class="post-image">${image}</div>
+          <div class="post-image"><img src="${image}" class="rounded mx-auto d-block" alt="missing image"></div>
           <div class="post-text">${content}</div>
         </div>
         <div class="post-footer">
@@ -73,6 +106,41 @@ function petboast_detail() {
         }
       }});
     }
+
+    // 게시글 삭제
+    function deletePost(){
+      // 쿠키에 있는 토큰 헤더로 실어보내기
+    const token = getToken('token'); // bearer 토큰 값 가져오기
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+    fetch('http://127.0.0.1:5500/templates/posts_detail.html?id=' + id, { headers })
+      .then(response => {
+        // 응답 처리
+      })
+      .catch(error => {
+        // 에러 처리
+      });
+      
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    $.ajax({
+      url: 'http://localhost:8080/posts/' + id,
+      type: 'DELETE',
+      success: function(result) {
+        console.log('DELETE request succeeded.');
+        // handle success
+        // 페이지 이동
+        location.href = 'http://127.0.0.1:5500/templates/posts.html';
+      },
+      error: function(xhr, status, error) {
+        console.error('DELETE request failed.');
+        // handle error
+      }
+    });
+  }
+
+
 
     $(document).on('click', '.post-detail-comment-like-btn', function () {
         const postId = response.id;

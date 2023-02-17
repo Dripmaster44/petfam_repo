@@ -17,6 +17,7 @@
       let username = $('#username').val();
       let password = $('#password').val();
       let nickname = $('#nickname').val();
+    
 
       if (username == '') {
         alert('ID를 입력해주세요');
@@ -27,7 +28,7 @@
       } else if(nickname == '') {
         alert('닉네임를 입력해주세요');
         return;
-      }
+      } 
 
       var settings = {
         "url": "http://localhost:8080/users/signup",

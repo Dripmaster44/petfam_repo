@@ -55,6 +55,8 @@
       return;
     }
 
+
+
     $.ajax({
       type: "POST",
       url: "http://localhost:8080/users/signin",
@@ -62,10 +64,9 @@
       data: JSON.stringify({username: username, password: password}),
       success: function (response, status, xhr) {
         if(response === 'success') {
-
-          document.cookie =
-              'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/';
-          document.cookie =
+        document.cookie =
+              'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/'; 
+          document.cookie = 
               'Refresh_authorization' + '=' + xhr.getResponseHeader('Refresh_authorization') + ';path=/';
               
           window.location.href = 'http://127.0.0.1:5500/templates/index_login.html';

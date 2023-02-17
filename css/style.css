@@ -44,6 +44,7 @@
     letter-spacing: 1.1px;
   }
 
+
   #welcome-text{
     position:absolute;
     top:48px;
@@ -56,6 +57,7 @@
     letter-spacing: 0.36px;
     text-align: center;
   }
+
 
   #sign-text{
     position:absolute;
@@ -104,6 +106,48 @@
     margin-top: 100px;
     margin-right: 50px;
     justify-content: flex-start;
+  }
+  
+
+
+  #img-thumbnail {
+    position: relative;
+    top: 28px;
+    left: 48px;
+    width: 300px;
+    height: 300px;
+    line-height: 2;
+  }
+
+  #profile-card {
+    position: relative;
+    bottom: 273px;
+    left: 600px;
+    
+  }
+
+  #profile-update-button {
+    position: relative;
+    bottom: 180px;
+    left: 780px;
+  }
+
+  #profile-update-button1 {
+    position: relative;
+    bottom: 5px;
+    left: 420px;
+  }
+
+  #formGroupExampleInput {
+    width: 500px;
+  }
+
+  #formGroupExampleInput2 {
+    width: 500px;
+  }
+
+  #formGroupExampleInput3 {
+    width: 500px;
   }
 
   .posts{

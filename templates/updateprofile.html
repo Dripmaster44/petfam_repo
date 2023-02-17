@@ -16,6 +16,37 @@
     window.onload = function() {
       getUserNickname();
     };
+
+    function profileUpdate() {
+
+      let image = $('#formGroupExampleInput').val();
+      let nickname = $('#formGroupExampleInput2').val();
+      let introduction = $('#formGroupExampleInput3').val();
+
+      var settings = {
+        "url": "http://localhost:8080/users/profiles",
+        "method": "PATCH",
+        "timeout": 0,
+        "headers": {
+          "Authorization": window.localStorage.getItem('Authorization'),
+          "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
+          "nickname": nickname,
+          "introduction": introduction,
+          "image": image
+        }),
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        if (response == "success"){
+          alert("프로필 수정 완료")
+          window.location.href = 'http://127.0.0.1:5500/templates/myprofile.html';
+        }
+      });
+    }
+
   </script>
   <title>반려동물 자랑 사이트, petfam</title>
 </head>
@@ -60,6 +91,25 @@
     <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="#">Q&A게시판</a>
   </div>
 </nav>
+
+</div>
+<h1 id = "profile-header">프로필 수정 </h1>
+<div id = "profile-update-content">
+  <div class="mb-3">
+    <label for="formGroupExampleInput" class="form-label">이미지</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Image">
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">닉네임</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Nickname">
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">자기 소개</label>
+    <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="introduction">
+  </div>
+</div>
+
+<button type="button" class="btn btn-dark" id = "profile-update-button1" onclick = "profileUpdate()">수정완료</button>
 <script src="../javascript/user.js"></script>
 </body>
 </html>

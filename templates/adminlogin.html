@@ -46,6 +46,7 @@
 
     let username = $('#username').val();
     let password = $('#password').val();
+    let adminKey = $('#adminKey').val();
 
     if (username == '') {
       alert('ID를 입력해주세요');
@@ -53,20 +54,25 @@
     } else if(password == '') {
       alert('비밀번호를 입력해주세요');
       return;
+    } else if(adminKey == '') {
+      alert('관리자암호를 입력해주세요');
+      return;
     }
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:8080/users/signin",
+      url: "http://localhost:8080/users/admin/signin",
       contentType: "application/json",
-      data: JSON.stringify({username: username, password: password}),
+      data: JSON.stringify({username: username, password: password, adminKey: adminKey}),
       success: function (response, status, xhr) {
         if(response === 'success') {
 
           document.cookie =
               'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/';
-          document.cookie =
+
+          document.cookie = 
               'Refresh_authorization' + '=' + xhr.getResponseHeader('Refresh_authorization') + ';path=/';
+
               
           window.location.href = 'http://127.0.0.1:5500/templates/index_login.html';
         } else {

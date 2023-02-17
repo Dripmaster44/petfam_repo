@@ -63,19 +63,21 @@ function getUser() {
 }
 
 function logout() {
+  const auth = getToken();
+  const auth_r = getRefreshToken();
   var settings = {
     "url": "http://localhost:8080/users/signout",
     "method": "POST",
     "timeout": 0,
-    "headers": {
-      "Authorization": window.localStorage.getItem('Authorization'),
-      "Refresh_authorization": window.localStorage.getItem('Refresh_authorization')
-    },
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", auth);
+      xhr.setRequestHeader("Refresh_authorization", auth_r);
+    }
   };
   
   $.ajax(settings).done(function (response) {
     console.log(response);
-    if (response == '로그아웃이 되었습니다.'){
+    if (response == 'success'){
       alert('로그아웃')
     } else {
       alert('로그아웃 실패')
@@ -84,20 +86,22 @@ function logout() {
 };
 
 function refresh() {
+  const auth_r = getRefreshToken();
   var settings = {
     "url": "http://localhost:8080/users/refresh",
     "method": "POST",
     "timeout": 0,
-    "headers": {
-      "Authorization": window.localStorage.getItem('Authorization'),
-      "Refresh_authorization": "Refresh eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6IlVTRVIiLCJleHAiOjE2Nzc4MTMwODQsImlhdCI6MTY3NjYwMzQ4NH0.kHMX2EXxf2ivMHfqeirC2MDCheuymo1LOenxqPuyUtM"
-    },
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Refresh_authorization", auth_r);
+    }
   };
   
-  $.ajax(settings).done(function (response) {
+  $.ajax(settings).done(function (response,status,xhr) {
     console.log(response);
-    if (response == "로그인이 연장되었습니다."){
+    if (response == "success"){
+      document.cookie = 'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/'; 
       alert('로그인연장')
+
     }
   });
   

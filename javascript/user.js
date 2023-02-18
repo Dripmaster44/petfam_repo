@@ -1,35 +1,17 @@
 function getUserNickname() {
-  const auth = getToken();
-  console.log(auth);
-  var settings = {
-    "url": "http://localhost:8080/users/profiles",
-    "method": "GET",
-    "timeout": 0,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", auth);
-    }
-  };
-  console.log(settings)
-  $.ajax(settings).done(function (response) {
+  sendAuthorizedRequest("http://localhost:8080/users/profiles", "GET", function (response) {
     console.log(response);
     console.log(response.nickname);
     $('#welcome-text').empty();
     $('#welcome-text').append(response.nickname+'님 반갑습니다.');
   });
-
 }
+      
+
+    
 
 function getUserMe() {
-  const auth = getToken();
-  var settings = {
-    "url": "http://localhost:8080/users/profiles",
-    "method": "GET",
-    "timeout": 0,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", auth);
-    }
-  };
-  $.ajax(settings).done(function (response) {
+  sendAuthorizedRequest("http://localhost:8080/users/profiles", "GET", function (response) {
     console.log(response);
     $('#card-content1').empty();
     $('#card-content1').append(response.nickname);
@@ -41,16 +23,7 @@ function getUserMe() {
 }
 
 function getUser() {
-  const auth = getToken();
-  var settings = {
-    "url": "http://localhost:8080/users/profiles/1",
-    "method": "GET",
-    "timeout": 0,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", auth);
-    }
-  };
-  $.ajax(settings).done(function (response) {
+  sendAuthorizedRequest("http://localhost:8080/users/profiles/1", "GET", function (response) {
     console.log(response);
     console.log(response.nickname);
     $('#card-content1').empty();
@@ -79,33 +52,13 @@ function logout() {
     console.log(response);
     if (response == 'success'){
       alert('로그아웃')
+      window.location.href = 'http://127.0.0.1:5500/templates/index.html';
     } else {
       alert('로그아웃 실패')
     }
   });
 };
 
-function refresh() {
-  const auth_r = getRefreshToken();
-  var settings = {
-    "url": "http://localhost:8080/users/refresh",
-    "method": "POST",
-    "timeout": 0,
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Refresh_authorization", auth_r);
-    }
-  };
-  
-  $.ajax(settings).done(function (response,status,xhr) {
-    console.log(response);
-    if (response == "success"){
-      document.cookie = 'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/'; 
-      alert('로그인연장')
-
-    }
-  });
-  
-};
 
 function profileUpdate() {
   const auth = getToken();
@@ -113,6 +66,7 @@ function profileUpdate() {
   let image = $('#formGroupExampleInput').val();
   let nickname = $('#formGroupExampleInput2').val();
   let introduction = $('#formGroupExampleInput3').val();
+
 
   var settings = {
     "url": "http://localhost:8080/users/profiles",
@@ -168,4 +122,40 @@ function  getRefreshToken() {
   }
 
   return auth;
+}
+
+function sendAuthorizedRequest(url, method, callback) {
+  const auth = getToken();
+  var settings = {
+    "url": url,
+    "method": method,
+    "timeout": 0,
+    "beforeSend": function(xhr) {
+      xhr.setRequestHeader("Authorization", auth);
+    }
+  };
+  $.ajax(settings)
+    .done(callback)
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      if (jqXHR.status === 403) {
+        const refresh = getRefreshToken();
+        var refreshSettings = {
+          "url": "http://localhost:8080/users/refresh",
+          "method": "POST",
+          "timeout": 0,
+          "beforeSend": function(xhr) {
+            xhr.setRequestHeader("Refresh_authorization", refresh);
+          }
+        };
+        $.ajax(refreshSettings)
+          .done(function (response, status, xhr) {
+            document.cookie = 'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/'; 
+            const newAccessToken = getToken();
+            settings.headers.Authorization = newAccessToken;
+            $.ajax(settings).done(callback);
+          });
+      } else {
+        console.log(errorThrown);
+      }
+    });
 }

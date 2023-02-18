@@ -23,7 +23,9 @@ function getUserMe() {
 }
 
 function getUser() {
-  sendAuthorizedRequest("http://localhost:8080/users/profiles/1", "GET", function (response) {
+  const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+  sendAuthorizedRequest("http://localhost:8080/users/profiles/"+id, "GET", function (response) {
     console.log(response);
     console.log(response.nickname);
     $('#card-content1').empty();
@@ -90,6 +92,30 @@ function profileUpdate() {
     if (response == "success"){
       alert("프로필 수정 완료")
       window.location.href = 'http://127.0.0.1:5500/templates/myprofile.html';
+    }
+  });
+}
+
+function getAllUsers() {
+  sendAuthorizedRequest("http://localhost:8080/admin/users", "GET", function (response) {
+    console.log(response);
+    let rows = response['content']
+    for (let i = 0; i < rows.length; i++) {
+        let id = rows[i]['id']
+        let username = rows[i]['username']
+        let nickname = rows[i]['nickname']
+        let role = rows[i]['role']
+        
+        let temp_html =`
+        <tr>
+        <th class="table1">${id}</th>
+        <th class="table2" data-post-id="${id}"><a class="table222" href="getprofile.html?id=${id}">${username}</a></th>
+        <th class="table3">${nickname}</th>
+        <th class="table4">${role}</th>
+        </tr>`
+
+        // post-table에 temp_html 추가
+      $('#post-table').append(temp_html);
     }
   });
 }

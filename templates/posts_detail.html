@@ -11,7 +11,7 @@
           integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
           crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/style.css"/> 
   <link rel="stylesheet" type="text/css" href="../css/post_detail_style.css"/>
   <title>반려동물 자랑 사이트, petfam</title>
 </head>
@@ -36,10 +36,10 @@
     <div id="header-title-petfam">
       Petfam(펫팸)
     </div>
-    <a id="sign-text" href="/templates/signupUser">
+    <a id="sign-text" href="/templates/signup.html">
       회원가입
     </a>
-    <a id="login-text" href="/templates/loginUser">
+    <a id="login-text" href="/templates/login.html">
       로그인
     </a>
     <a id="home-text" href="/templates/index.html">
@@ -60,6 +60,10 @@
 </nav>
 <div class="posts">
 <div id="post-detail">
+</div>
+<div class="input-and-button mb-3">
+  <input type="text" class="form-control" id="formGroupExampleInput2" style="width: 830px; margin-top: 10px;" placeholder="댓글을 등록하세요.">
+  <button type="button" onclick="comment_register()" class="btn btn-light">등록</button>
 </div>
 </div>
 <script src="../javascript/post_detail_script.js"></script>

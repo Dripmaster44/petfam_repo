@@ -1,3 +1,4 @@
+
 // 페이지 접속시 함수 호출하는 코드
 $(document).ready(function () {
     petboast_detail();
@@ -76,17 +77,37 @@ function petboast_detail() {
         $('#post-detail').append(temp_html);
         for(let i=0; i< response.comments.length; i++){
             const comment = response.comments[i];
+            const commentId = comment.id;
             const commentWriter = comment.writer;
             const commentContent = comment.content;
             const commentLikes = comment.likes;
             const reComments = comment.reComments;
-            let temp_html2 = `<table><tr class="post-detail-comment">
-                <th class="post-detail-comment-writer">${commentWriter}</th>
-                <th class="post-detail-comment-content">${commentContent}</th>
-                <th class="post-detail-comment-likes">${commentLikes}</th>
-                <th>
-                <button type="button" class="btn btn-outline-primary">좋아요</button></th>
-            </tr></table>`;
+            let temp_html2 = `<table>
+            <tr class="post-detail-comment" data-comment-id="${commentId}">
+              <th class="post-detail-comment-writer">${commentWriter}</th>
+              <th class="post-detail-comment-content">${commentContent}</th>
+              <th class="post-detail-comment-likes">${commentLikes}</th>
+              <td>
+                <div class="post-detail-comment-buttons">
+                  <button type="button" class="btn btn-outline-primary" onclick="comment_open(${commentId})">수정</button>
+                  <div class="commentbox commentbox-${commentId}" style="display:none;">
+                    <input type="text" class="form-control" id="formGroupExampleInput4-${commentId}" style="width: 780px; margin-top: 10px;" placeholder="수정할 댓글을 작성하세요.">
+                    <button type="button" onclick="comment_update(${commentId})" class="btn btn-light">수정</button>
+                    <button type="button" onclick="comment_close(${commentId})" class="btn btn-light">닫기</button>
+                  </div>
+                  <button type="button" class="btn btn-outline-primary" onclick="deleteComment(${commentId})">삭제</button>
+                  <button type="button" class="btn btn-outline-primary" onclick="recomment_open(${commentId})">댓글</button>
+                  <div class="recommentbox recommentbox-${commentId}" style="display:none;">
+                    <input type="text" class="form-control" id="formGroupExampleInput3-${commentId}" style="width: 780px; margin-top: 10px;" placeholder="댓글을 등록하세요.">
+                    <button type="button" onclick="recomment_register(${commentId})" class="btn btn-light">등록</button>
+                    <button type="button" onclick="recomment_close(${commentId})" class="btn btn-light">닫기</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>`;
+
+
 
             $('#post-detail').append(temp_html2);
             for(let j=0; j< reComments.length; j++){
@@ -99,7 +120,8 @@ function petboast_detail() {
                 <th class="post-detail-reComment-content">${reCommentContent}</th>
                 <th class="post-detail-reComment-likes">${reCommentLikes}</th>
                 <th>
-                <button type="button" class="btn btn-outline-primary">좋아요</button></th>
+                <button type="button" class="btn btn-outline-primary">좋아요</button>
+                <button type="button" onclick="recomment_update(${id})" class="btn btn-outline-primary">수정</button></th>
             </tr><table>`
                 $('#post-detail').append(temp_html3);
             }
@@ -132,24 +154,136 @@ function petboast_detail() {
     });
   }
 
+  // 게시글에 댓글 등록
+  function comment_register(){
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
 
+      const auth = getToken();
+      var content = $('#formGroupExampleInput2').val();
+      // AJAX 요청 보내기
+      $.ajax({
+        url: 'http://localhost:8080/posts/'+id+'/comments',
+        type: 'POST',
+        data: JSON.stringify({content: content}),
+        headers: {
+          'Content-Type': 'application/json' // 서버에서 지원하는 타입으로 변경
+        },
+        "beforeSend": function(xhr) {
+          xhr.setRequestHeader("Authorization", auth);
+        },
+        success: function(data) {
+          // 서버로부터 성공적인 응답을 받았을 때 실행할 코드
+          console.log('글이 성공적으로 작성되었습니다!');
+          // 페이지 이동
+          location.href = "posts_detail.html?id="+id;
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // 서버로부터 오류 응답을 받았을 때 실행할 코드
+          console.log('글 작성에 실패했습니다: ' + textStatus + ' - ' + errorThrown);
+        }
+      })};
 
-    $(document).on('click', '.post-detail-comment-like-btn', function () {
-        const postId = response.id;
-        const commentId = $(this).closest('.post-detail-comment').attr('id');
-        $.ajax({
-            url: 'http://localhost:8080/comments/' + commentId + '/like',
-            type: 'POST',
-            data: {},
-            contentType: "application/json;",
-            success: function (response) {
-                // 좋아요 증가 성공 시, 좋아요 개수를 갱신해줍니다.
-                $(this).prev('.post-detail-comment-likes').text(response.likes);
-            },
-            // error: function (xhr, status, error) {
-            //     // 좋아요 증가 실패 시, 에러 메시지를 출력합니다.
-            //     console.error(xhr, status, error);
-            // }
-        });
-    });
+  // 댓글 수정
+  function comment_update(commentId){
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    var content = $('#formGroupExampleInput4-'+commentId).val();
+  
+      const auth = getToken();
+      // AJAX 요청 보내기
+      $.ajax({
+        url: 'http://localhost:8080/comments/' + commentId,
+        type: 'PATCH',
+        data: JSON.stringify({content: content}),
+        headers: {
+          'Content-Type': 'application/json' // 서버에서 지원하는 타입으로 변경
+        },
+        "beforeSend": function(xhr) {
+          xhr.setRequestHeader("Authorization", auth);
+        },
+        success: function(data) {
+          // 서버로부터 성공적인 응답을 받았을 때 실행할 코드
+          console.log('글이 성공적으로 수정되었습니다!');
+          // 페이지 이동
+          location.href = "posts_detail.html?id="+id;
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // 서버로부터 오류 응답을 받았을 때 실행할 코드
+          console.log('글 작성에 실패했습니다: ' + textStatus + ' - ' + errorThrown);
+        }
+      });
+    };
+
     
+  // 댓글 삭제
+  function deleteComment(commentId){
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    const auth = getToken();
+    $.ajax({
+      url: 'http://localhost:8080/comments/' + commentId,
+      type: 'DELETE',
+      "beforeSend": function(xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+      },
+      success: function(result) {
+        console.log('DELETE request succeeded.');
+        // handle success
+        // 페이지 이동
+        location.href = "posts_detail.html?id="+id;
+      },
+      error: function(xhr, status, error) {
+        console.error('DELETE request failed.');
+        // handle error
+      }
+    });
+  }
+  
+
+
+  // 댓글에 대댓글 등록
+function recomment_register(commentId){
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+  const auth = getToken();
+
+  var content = $('#formGroupExampleInput3-'+commentId).val();
+  $.ajax({
+    url: 'http://localhost:8080/comments/'+commentId,
+    type: 'POST',
+    data: JSON.stringify({content: content}),
+    headers: {'Content-Type': 'application/json'},
+    "beforeSend": function(xhr) {xhr.setRequestHeader("Authorization", auth);},
+    success: function(data) {
+      console.log('대댓글이 성공적으로 등록되었습니다!');
+      // 페이지 이동
+      location.href = "posts_detail.html?id="+id;
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log('대댓글 등록에 실패했습니다: ' + textStatus + ' - ' + errorThrown);
+    }
+  });
+}
+
+
+  // 댓글 수정창 보이기
+  function comment_open(commentId) {
+    document.querySelector('.commentbox-'+commentId).style.display = 'block';
+  }
+
+  // 댓글 수정창 닫기
+  function comment_close(commentId) {
+    document.querySelector('.commentbox-'+commentId).style.display = 'none';
+  }
+
+  // 댓글에 대댓글 등록창 보이기
+  function recomment_open(commentId) {
+    document.querySelector('.recommentbox-'+commentId).style.display = 'block';
+  }
+
+  // 대댓글 등록창 닫기
+  function recomment_close(commentId) {
+    document.querySelector('.recommentbox-'+commentId).style.display = 'none';
+  }

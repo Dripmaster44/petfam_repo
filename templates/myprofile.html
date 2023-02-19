@@ -16,6 +16,26 @@
     window.onload = function() {
       getUserNickname();
       getUserMe();
+      const cookieValue = getToken();
+        if (cookieValue== "") {
+          document.getElementById("sign-text").style.display = "inline";
+          document.getElementById("welcome-text").style.display = "none";
+          document.getElementById("signout-text").style.display = "none";
+          document.getElementById("admingetuser").style.display = "none";
+          document.getElementById("login-text").style.display = "inline";
+        }  else {
+          document.getElementById("sign-text").style.display = "none";
+          document.getElementById("welcome-text").style.display = "inline";
+          document.getElementById("signout-text").style.display = "inline";
+          document.getElementById("admingetuser").style.display = "none";
+          document.getElementById("login-text").style.display = "none";
+        }
+
+        getIsAdmin().then(isAdmin => {
+          if (isAdmin === true) {
+            document.getElementById("admingetuser").style.display = "inline";
+          }
+        });
     };
 
   </script>
@@ -23,44 +43,42 @@
 </head>
 <body>
   <div class="header" style="position: relative;">
-    <div id="login-true" style="display: none;">
-      <div id="header-title-login-user">
-        <div id="username"></div> 님
-      </div>
-      <div id="header-title-petfam">
-        Petfam(펫팸)
-      </div>
-      <a id="login-text" href="javascript/logout()">
-        로그아웃
-      </a>
-      <a id="home-text" href="/templates/index.html">
-        HOME
-      </a>
+    <div id="header-title-petfam">
+      Petfam(펫팸)
     </div>
-    <div id="login-false">
-      <div id="header-title-petfam">
-        Petfam(펫팸)
-      </div>
-      <a id="welcome-text" href="/templates/myprofile.html">
-        ...님 환영합니다.
-      </a>
-      <button id="sign-text" onclick="logout()">
-        로그아웃
-      </button>
-      <a id="home-text" href="/templates/index.html">
-        HOME
-      </a>
-    </div>
-  </div>
-<nav class="nav flex-column" id="sidebar-text" style="float: left; margin-right: 50px; width: 200px;">
+    <a id="sign-text" href="/templates/signup.html">
+      회원가입
+    </a>
+    <a id="login-text" href="/templates/login.html">
+      로그인
+    </a>
+    <a id="home-text" href="/templates/index.html">
+      HOME
+    </a>
+    <a id="welcome-text" href="/templates/myprofile.html">
+      ...님 환영합니다.
+    </a>
+    <button id="signout-text" onclick="logout()">
+      로그아웃
+    </button>
+    <a id="admingetuser" href = "/templates/getusers.html">
+      유저전체조회(관리자 전용)
+    </a>
+</div>
+</div>
+<nav class="nav flex-column" id="sidebar-text"
+     style="float: left; margin-right: 50px; width: 200px;">
   <div class="nav-column">
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts.html">펫팸 자랑</a>
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts_chat.html">펫팸 잡담</a>
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts_qna.html">Q&A게시판</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
+       href="./posts.html">펫팸 자랑</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
+       href="#">펫팸 잡담</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
+       href="#">Q&A게시판</a>
   </div>
 </nav>
 <h1 id = "profile-header">나의 프로필 조회 </h1>
-<img src="data:image/jpeg;base64,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" class="img-thumbnail" id="img-thumbnail">
+<img src="" class="img-thumbnail" id="img-thumbnail">
 <div class="card" style="width: 18rem;" id="profile-card">
 
   <ul class="list-group list-group-flush">

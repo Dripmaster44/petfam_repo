@@ -15,6 +15,26 @@
   <script>
     window.onload = function() {
       getUserNickname();
+      const cookieValue = getToken();
+        if (cookieValue== "") {
+          document.getElementById("sign-text").style.display = "inline";
+          document.getElementById("welcome-text").style.display = "none";
+          document.getElementById("signout-text").style.display = "none";
+          document.getElementById("admingetuser").style.display = "none";
+          document.getElementById("login-text").style.display = "inline";
+        }  else {
+          document.getElementById("sign-text").style.display = "none";
+          document.getElementById("welcome-text").style.display = "inline";
+          document.getElementById("signout-text").style.display = "inline";
+          document.getElementById("admingetuser").style.display = "none";
+          document.getElementById("login-text").style.display = "none";
+        }
+
+        getIsAdmin().then(isAdmin => {
+          if (isAdmin === true) {
+            document.getElementById("admingetuser").style.display = "inline";
+          }
+        });
     };
 
     function profileUpdate() {

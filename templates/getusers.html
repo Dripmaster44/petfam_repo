@@ -16,49 +16,64 @@
     window.onload = function() {
       getUserNickname();
       getAllUsers();
+      const cookieValue = getToken();
+        if (cookieValue== "") {
+          document.getElementById("sign-text").style.display = "inline";
+          document.getElementById("welcome-text").style.display = "none";
+          document.getElementById("signout-text").style.display = "none";
+          document.getElementById("admingetuser").style.display = "none";
+          document.getElementById("login-text").style.display = "inline";
+        }  else {
+          document.getElementById("sign-text").style.display = "none";
+          document.getElementById("welcome-text").style.display = "inline";
+          document.getElementById("signout-text").style.display = "inline";
+          document.getElementById("admingetuser").style.display = "none";
+          document.getElementById("login-text").style.display = "none";
+        }
+
+        getIsAdmin().then(isAdmin => {
+          if (isAdmin === true) {
+            document.getElementById("admingetuser").style.display = "inline";
+          }
+        });
     };
   </script>
   <title>반려동물 자랑 사이트, petfam</title>
 </head>
 <body>
   <div class="header" style="position: relative;">
-    <div id="login-true" style="display: none;">
-      <div id="header-title-login-user">
-        <div id="username"></div> 님
-      </div>
-      <div id="header-title-petfam">
-        Petfam(펫팸)
-      </div>
-      <a id="login-text" href="javascript/logout()">
-        로그아웃
-      </a>
-      <a id="home-text" href="/templates/index_login.html">
-        HOME
-      </a>
+    <div id="header-title-petfam">
+      Petfam(펫팸)
     </div>
-    <div id="login-false">
-      <div id="header-title-petfam">
-        Petfam(펫팸)
-      </div>
-      <a id="welcome-text" href="/templates/myprofile.html">
-        ...님 환영합니다.
-      </a>
-      <button id="sign-text" onclick="logout()">
-        로그아웃
-      </button>
-      <a id="admingetuser" href = "/templates/getusers.html">
-        유저전체조회(관리자 전용)
-      </a>
-      <a id="home-text" href="/templates/index_login.html">
-        HOME
-      </a>
-    </div>
-  </div>
-<nav class="nav flex-column" id="sidebar-text" style="float: left; margin-right: 50px; width: 200px;">
+    <a id="sign-text" href="/templates/signup.html">
+      회원가입
+    </a>
+    <a id="login-text" href="/templates/login.html">
+      로그인
+    </a>
+    <a id="home-text" href="/templates/index.html">
+      HOME
+    </a>
+    <a id="welcome-text" href="/templates/myprofile.html">
+      ...님 환영합니다.
+    </a>
+    <button id="signout-text" onclick="logout()">
+      로그아웃
+    </button>
+    <a id="admingetuser" href = "/templates/getusers.html">
+      유저전체조회(관리자 전용)
+    </a>
+</div>
+</div>
+<nav class="nav flex-column" id="sidebar-text"
+     style="float: left; margin-right: 50px; width: 200px;">
   <div class="nav-column">
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts.html" onclick="petboast()">펫팸 자랑</a>
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="#">펫팸 잡담</a>
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="#">Q&A게시판</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
+       href="./posts.html">펫팸 자랑</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
+       href="#">펫팸 잡담</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
+       href="#">Q&A게시판</a>
   </div>
 </nav>
 <div class="posts">

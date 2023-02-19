@@ -71,6 +71,19 @@
     letter-spacing: 0.36px;
     text-align: center;
   }
+  #signout-text{
+    position:absolute;
+    top:48px;
+    right: 150px;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: 0.36px;
+    text-align: center;
+  }
+
 
   #login-text{
     position:absolute;

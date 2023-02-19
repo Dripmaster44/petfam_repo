@@ -202,7 +202,41 @@
     width: 100px;
   }
 
+  .page-button {
+    border: none;
+    color: #555;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 10px 16px;
+    font-size: 16px;
+    transition: background-color .3s;
+    border-radius: 3px;
+    margin: 2px;
+  }
   
+  .page-button:hover {
+    background-color: #eee;
+  }
+  
+  .current {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .current:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  #write-post{
+    text-decoration: none; 
+    padding: 8px 16px; 
+    margin-right: 50px;
+    background-color: #1E90FF; 
+    color: white; 
+    border-radius: 4px;
+  }
 
 
   

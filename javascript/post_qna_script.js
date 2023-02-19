@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 let currentPage = 0;
-let category = 'PET';
+let category = 'QNA';
 
 function petboast() {
   let url = 'http://localhost:8080/posts?page=' + currentPage + '&size=10';

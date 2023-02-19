@@ -35,10 +35,10 @@
     <div id="header-title-petfam">
       Petfam(펫팸)
     </div>
-    <a id="sign-text" href="/templates/signupUser">
+    <a id="sign-text" href="/templates/signup.html">
       회원가입
     </a>
-    <a id="login-text" href="/templates/loginUser">
+    <a id="login-text" href="/templates/login.html">
       로그인
     </a>
     <a id="home-text" href="/templates/index.html">
@@ -49,15 +49,15 @@
 <nav class="nav flex-column" id="sidebar-text"
      style="float: left; margin-right: 50px; width: 200px;">
   <div class="nav-column">
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
-       href="./posts.html" onclick="petboast()">펫팸 자랑</a>
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
-       href="#">펫팸 잡담</a>
-    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black"
-       href="#">Q&A게시판</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts.html">펫팸 자랑</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts_chat.html">펫팸 잡담</a>
+    <a class="nav-link active" id="sidebar-text-each" aria-current="page" style="color: black" href="./posts_qna.html">Q&A게시판</a>
   </div>
 </nav>
 <div class="posts">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <a id="write-post" href="/templates/createPost.html">글쓰기</a>
+  </div>
   <table>
     <thead>
     <tr class="table">
@@ -71,6 +71,7 @@
       <tr id="post-table" class="table"></tr>
     </tbody>
   </table>
+  <div id="page-buttons"> </div>
 </div>
 <script src="../javascript/post_script.js"></script>
 </body>

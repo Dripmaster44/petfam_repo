@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -27,7 +27,7 @@
 
   <button id="login-id-submit" onclick="login()">로그인</button>
 
-  <button id="login-id-btn" onclick="location.href='/templates/signup.html'">
+  <button id="login-id-btn" onclick="location.href='http://127.0.0.1:5500/templates/signup.html'">
     회원 가입하기
   </button>
 
@@ -69,7 +69,7 @@
         document.cookie = 
               'Refresh_authorization' + '=' + xhr.getResponseHeader('Refresh_authorization') + ';path=/';
               
-          window.location.href = 'http://127.0.0.1:5500/templates/index_login.html';
+          window.location.href = 'http://127.0.0.1:5500/templates/index.html';
         } else {
           alert('로그인에 실패하셨습니다. 다시 로그인해 주세요.')
           window.location.reload();

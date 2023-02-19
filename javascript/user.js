@@ -6,9 +6,19 @@ function getUserNickname() {
     $('#welcome-text').append(response.nickname+'님 반갑습니다.');
   });
 }
-      
 
-    
+function getIsAdmin() {
+  return new Promise((resolve, reject) => {
+    sendAuthorizedRequest("http://localhost:8080/users/profiles", "GET", function (response) {
+      if (response.role === "ROLE_ADMIN") {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 
 function getUserMe() {
   sendAuthorizedRequest("http://localhost:8080/users/profiles", "GET", function (response) {
@@ -50,11 +60,15 @@ function logout() {
     }
   };
   
-  $.ajax(settings).done(function (response) {
+  $.ajax(settings).done(function (response,status,xhr) {
     console.log(response);
     if (response == 'success'){
       alert('로그아웃')
       window.location.href = 'http://127.0.0.1:5500/templates/index.html';
+      document.cookie =
+              'Authorization' + '=' + "" + ';path=/'; 
+        document.cookie = 
+              'Refresh_authorization' + '=' + "" + ';path=/';
     } else {
       alert('로그아웃 실패')
     }

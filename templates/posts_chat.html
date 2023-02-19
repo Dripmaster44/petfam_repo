@@ -11,8 +11,7 @@
           integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
           crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../css/style.css"/> 
-  <link rel="stylesheet" type="text/css" href="../css/post_detail_style.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/style.css"/>
   <title>반려동물 자랑 사이트, petfam</title>
 </head>
 <body>
@@ -56,13 +55,24 @@
   </div>
 </nav>
 <div class="posts">
-<div id="post-detail">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <a id="write-post" href="/templates/createPost.html">글쓰기</a>
+  </div>
+  <table>
+    <thead>
+    <tr class="table">
+      <th class="table1">글 번호</th>
+      <th class="table2">글 제목</th>
+      <th class="table3">글쓴이</th>
+      <th class="table4">추천</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr id="post-table" class="table"></tr>
+    </tbody>
+  </table>
+  <div id="page-buttons"> </div>
 </div>
-<div class="input-and-button mb-3">
-  <input type="text" class="form-control" id="formGroupExampleInput2" style="width: 830px; margin-top: 10px;" placeholder="댓글을 등록하세요.">
-  <button type="button" onclick="comment_register()" class="btn btn-light">등록</button>
-</div>
-</div>
-<script src="../javascript/post_detail_script.js"></script>
+<script src="../javascript/post_chat_script.js"></script>
 </body>
 </html>

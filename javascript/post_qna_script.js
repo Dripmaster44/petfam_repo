@@ -8,14 +8,14 @@ function petboast() {
   $.ajax({
     url: 'http://localhost:8080/posts',
     type: 'GET',
-    data: { "page": currentPage },
+    data: { "page": currentPage},
     contentType: "application/json;",
     crossDomain: true,
     success: function (response) {
       // 서버로부터 데이터를 성공적으로 받아온 경우
       console.log(response)
         let rows = response['content'];
-        let petRows = rows.filter(row => row.category && row.category === 'PET'); // PET 카테고리에 해당하는 게시물만 필터링
+        let petRows = rows.filter(row => row.category && row.category === 'QNA');
 
         $('#post-table').empty(); // 기존의 게시물 테이블 비우기
         for (let i = 0; i < petRows.length; i++) { // 필터링된 게시물만 출력

@@ -27,7 +27,6 @@ fetch("http://127.0.0.1:5500/templates/updatePost.html", { headers })
   }
   
 
-
 $(document).ready(function() {
     $('form').submit(function(event) {
       event.preventDefault(); // 기본적인 form submit 기능을 막음
@@ -39,6 +38,7 @@ $(document).ready(function() {
       var title = $('#exampleFormControlInput1').val();
       var content = $('#exampleFormControlTextarea1').val();
       var image = $('#exampleFormControlInput2').val();
+      var category = $('#exampleFormControlSelect1').val();
   
       const auth = getToken();
       console.log(auth);
@@ -46,7 +46,7 @@ $(document).ready(function() {
       $.ajax({
         url: 'http://localhost:8080/posts/' + id,
         type: 'PATCH',
-        data: JSON.stringify({title: title, image: image, content: content}),
+        data: JSON.stringify({title: title, image: image, content: content, category:category}),
         headers: {
           'Content-Type': 'application/json' // 서버에서 지원하는 타입으로 변경
         },

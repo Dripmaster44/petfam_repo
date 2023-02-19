@@ -36,6 +36,7 @@ $(document).ready(function() {
       var title = $('#exampleFormControlInput1').val();
       var content = $('#exampleFormControlTextarea1').val();
       var image = $('#exampleFormControlInput2').val();
+      var category = $('#exampleFormControlSelect1').val();
   
       const auth = getToken();
       console.log(auth);
@@ -43,7 +44,7 @@ $(document).ready(function() {
       $.ajax({
         url: 'http://localhost:8080/posts',
         type: 'POST',
-        data: JSON.stringify({title: title, image: image, content: content}),
+        data: JSON.stringify({title: title, image: image, content: content, category: category}),
         headers: {
           'Content-Type': 'application/json' // 서버에서 지원하는 타입으로 변경
         },

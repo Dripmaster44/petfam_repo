@@ -67,6 +67,28 @@
       <input type="text" class="form-control" id="exampleFormControlInput1" 
              placeholder="제목을 입력해주세요.">
     </div>
+
+    <!-- <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        카테고리
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#" data-category="PET">펫팸 자랑</a></li>
+        <li><a class="dropdown-item" href="#" data-category="CHAT">펫팸 잡담</a></li>
+        <li><a class="dropdown-item" href="#" data-category="QNA">Q&A</a></li>
+      </ul>
+    </div> -->
+    
+    <div class="mb-3">
+      <label for="exampleFormControlSelect1" class="form-label">카테고리</label>
+      <select class="form-select" id="exampleFormControlSelect1" required>
+        <option value="" disabled selected>카테고리를 선택하세요</option>
+        <option value="PET">펫팸 자랑</option>
+        <option value="CHAT">펫팸 잡담</option>
+        <option value="QNA">Q&A</option>
+      </select>
+    </div>
+
     <div class="mb-3">
       <label for="exampleFormControlInput2" class="form-label">이미지 URL</label>
       <input type="url" class="form-control" id="exampleFormControlInput2" placeholder="이미지 URL을 입력해주세요.">

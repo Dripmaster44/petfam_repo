@@ -84,12 +84,17 @@ function logout() {
 
 function profileUpdate() {
   const auth = getToken();
+  uploadImage()
+  .then(function(s3Url) {
 
-  let image = $('#formGroupExampleInput3').val();
+    console.log(s3Url);
+  })
+
   let nickname = $('#formGroupExampleInput').val();
   let introduction = $('#formGroupExampleInput2').val();
+  let image = s3Url;
 
-
+  console.log(image);
   var settings = {
     "url": "http://localhost:8080/users/profiles",
     "method": "PATCH",
@@ -100,7 +105,7 @@ function profileUpdate() {
     "data": JSON.stringify({
       "nickname": nickname,
       "introduction": introduction,
-      "image": image
+      "image" : image
     }),
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);
@@ -115,6 +120,37 @@ function profileUpdate() {
     }
   });
 }
+
+function uploadImage() {
+  const auth = getToken();
+  return new Promise(function(resolve, reject) {
+    const fileInput = document.getElementById("formGroupExampleInput3");
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    var settings = {
+      "url": "http://localhost:8080/upload",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {},
+      "processData": false,
+      "mimeType": "multipart/form-data",
+      "contentType": false,
+      "data": formData,
+      "beforeSend": function(xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+      }
+    };
+
+    $.ajax(settings).done(function (response) {
+      resolve(response);
+    }).fail(function (error) {
+      reject(error);
+    });
+  });
+}
+
 
 function getAllUsers() {
   sendAuthorizedRequest("http://localhost:8080/admin/users", "GET", function (response) {

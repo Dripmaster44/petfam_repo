@@ -21,44 +21,70 @@
 
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-
-    <div class="wrap">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 d-flex align-items-center">
-					</div>
-					<div class="col-md-6 d-flex justify-content-md-end">
-						<div class="social-media">
-			    		<p class="mb-0 d-flex">
-			    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble">LogIn<i class="sr-only"></i></span></a>
-               				<a href="#" class="d-flex align-items-center justify-content-center"><span class=""><i class="sr-only"></i></span></a>
-                			<a href="#" class="d-flex align-items-center justify-content-center"><span class=""><i class="sr-only"></i></span></a>
-			    			<a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble">SignUp<i class="sr-only"></i></span></a>
-			    		</p>
-		        </div>
-					</div>
-				</div>
+    <script>
+		window.onload = function() {
+		  getUserNickname();
+		  const cookieValue = getToken();
+			if (cookieValue== "") {
+			  document.getElementById("main-item-signup").style.display = "inline";
+			  document.getElementById("main-item-welcome").style.display = "none";
+			  document.getElementById("main-item-logout").style.display = "none";
+			  document.getElementById("main-item-login").style.display = "inline";
+			  document.getElementById("main-item-users").style.display = "none";
+			}  else {
+			  document.getElementById("main-item-signup").style.display = "none";
+			  document.getElementById("main-item-welcome").style.display = "inline";
+			  document.getElementById("main-item-logout").style.display = "inline";
+			  document.getElementById("main-item-login").style.display = "none";
+			  document.getElementById("main-item-users").style.display = "none";
+			}
+  
+			getIsAdmin().then(isAdmin => {
+			  if (isAdmin === true) {
+				document.getElementById("main-item-users").style.display = "inline";
+			  }
+			});
+		};
+	  </script>
+	</head>
+	<body>
+  
+	  <div class="wrap">
+			  <div class="container">
+				  <div class="row">
+					  <div class="col-md-6 d-flex align-items-center">
+					  </div>
+					  <div class="col-md-6 d-flex justify-content-md-end">
+						  <div class="social-media">
+						  <p class="mb-0 d-flex">
+							  <a href="UserLogin.html"  id="main-item-login"><span class="fa fa-dribbble">LogIn<i class="sr-only"></i></span></a>
+							  <a href="UserSignup.html" id="main-item-signup"><span class="fa fa-dribbble">SignUp<i class="sr-only"></i></span></a>
+				  <a onclick="logout()" id="main-item-logout"><span class="fa fa-dribbble">로그아웃<i class="sr-only"></i></span></a>
+							  <a href="MyProfile.html" id="main-item-welcome"><span class="fa fa-dribbble">님 환영합니다.<i class="sr-only"></i></span></a>
+				  <a href="GetUsers.html" id="main-item-users"><span class="fa fa-dribbble">유저전체조회(관리자전용)<i class="sr-only"></i></span></a>  
+				</p>
+				  </div>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+		  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		  <div class="container">
+			  <a class="navbar-brand" href="index.html"><span class="flaticon-pawprint-1 mr-2"></span>Petfam</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="fa fa-bars"></span> Menu
+			</button>
+			<div class="collapse navbar-collapse" id="ftco-nav">
+			  <ul class="navbar-nav ml-auto">
+				  <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+			  <li class="nav-item"><a href="blog.html" class="nav-link">My Pet</a></li>
+				<li class="nav-item"><a href="pricing.html" class="nav-link">Small Talk</a></li>
+				<li class="nav-item"><a href="contact.html" class="nav-link">Q&A</a></li>
+			  </ul>
 			</div>
-		</div>
-		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	    	<a class="navbar-brand" href="index.html"><span class="flaticon-pawprint-1 mr-2"></span>Petfam</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="fa fa-bars"></span> Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="blog.html" class="nav-link">My Pet</a></li>
-	          <li class="nav-item"><a href="pricing.html" class="nav-link">Small Talk</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Q&A</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
+		  </div>
+		</nav>
+	  <!-- END nav -->
     <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
@@ -73,107 +99,14 @@
 
     <section class="ftco-section bg-light">
 		<div class="container">
-		  <div class="row d-flex">
-			<div class="col-md-4 d-flex ftco-animate">
-			  <div class="blog-entry align-self-stretch">
-				<a href="blog-single.html" class="block-20 rounded" style="background-image: url('images/image_1.jpg');">
-				</a>
-				<div class="text p-4">
-					<div class="meta mb-2">
-					<div><a href="#">April 07, 2020</a></div>
-					<div><a href="#">Admin</a></div>
-					<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-				  </div>
-				  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-				</div>
-			  </div>
-			</div>
-			<div class="col-md-4 d-flex ftco-animate">
-			  <div class="blog-entry align-self-stretch">
-				<a href="blog-single.html" class="block-20 rounded" style="background-image: url('images/image_2.jpg');">
-				</a>
-				<div class="text p-4">
-					<div class="meta mb-2">
-					<div><a href="#">April 07, 2020</a></div>
-					<div><a href="#">Admin</a></div>
-					<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-				  </div>
-				  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-				</div>
-			  </div>
-			</div>
-			<div class="col-md-4 d-flex ftco-animate">
-			  <div class="blog-entry align-self-stretch">
-				<a href="blog-single.html" class="block-20 rounded" style="background-image: url('images/image_3.jpg');">
-				</a>
-				<div class="text p-4">
-					<div class="meta mb-2">
-					<div><a href="#">April 07, 2020</a></div>
-					<div><a href="#">Admin</a></div>
-					<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-				  </div>
-				  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-				</div>
-			  </div>
-			</div>
-  
-			<div class="col-md-4 d-flex ftco-animate">
-			  <div class="blog-entry align-self-stretch">
-				<a href="blog-single.html" class="block-20 rounded" style="background-image: url('images/image_4.jpg');">
-				</a>
-				<div class="text p-4">
-					<div class="meta mb-2">
-					<div><a href="#">April 07, 2020</a></div>
-					<div><a href="#">Admin</a></div>
-					<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-				  </div>
-				  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-				</div>
-			  </div>
-			</div>
-			<div class="col-md-4 d-flex ftco-animate">
-			  <div class="blog-entry align-self-stretch">
-				<a href="blog-single.html" class="block-20 rounded" style="background-image: url('images/image_5.jpg');">
-				</a>
-				<div class="text p-4">
-					<div class="meta mb-2">
-					<div><a href="#">April 07, 2020</a></div>
-					<div><a href="#">Admin</a></div>
-					<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-				  </div>
-				  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-				</div>
-			  </div>
-			</div>
-			<div class="col-md-4 d-flex ftco-animate">
-			  <div class="blog-entry align-self-stretch">
-				<a href="blog-single.html" class="block-20 rounded" style="background-image: url('images/image_6.jpg');">
-				</a>
-				<div class="text p-4">
-					<div class="meta mb-2">
-					<div><a href="#">April 07, 2020</a></div>
-					<div><a href="#">Admin</a></div>
-					<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-				  </div>
-				  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-				</div>
-			  </div>
-			</div>
+			<div class="row d-flex ftco-animate" id="chat-posts">
+			
 		  </div>
 		  <div class="row mt-5">
 			<div class="col text-center">
-			  <div class="block-27">
-				<ul>
-				  <li><a href="#">&lt;</a></li>
-				  <li class="active"><span>1</span></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#">&gt;</a></li>                
-				</ul>
-				<a href="#" class="btn btn-primary d-block">Small Talk 작성</a>
+			  <div class="block-27" id="page-buttons">
 			  </div>
+			  <a href="PostMyPet.html" class="btn btn-primary d-block">Small Talk 작성</a>
 			</div>
 		  </div>
 		</div>
@@ -207,9 +140,11 @@
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script> -->
   <script src="js/main.js"></script>
+  <script src="js/chatPosts.js"></script>
+  <script src="js/user.js"></script>
 
 
     

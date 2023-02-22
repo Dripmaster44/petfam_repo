@@ -4,6 +4,76 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+/* 따로 추가한부분 */
+/* 버튼 스타일링 */
+.pagination {
+  display: inline-flex;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 0.25rem;
+}
+
+.page-item {
+  display: inline;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  color: #343a40;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #343a40;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.page-link:focus {
+  z-index: 3;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+}
+
+.page-link:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.page-link:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+/* 페이징 버튼 스타일링 */
+.page-button {
+  border: none;
+  color: #555;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 10px 16px;
+  font-size: 16px;
+  transition: background-color .3s;
+  border-radius: 3px;
+  margin: 2px;
+}
+
+.page-button:hover {
+  background-color: #eee;
+}
+
+/* 따로 추가한 부분 끝 */
+
+
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;

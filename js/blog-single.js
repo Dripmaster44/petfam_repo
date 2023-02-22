@@ -228,7 +228,7 @@ function deletePost(){
     success: function(result) {
       console.log('DELETE request succeeded.');
       // 페이지 이동
-      location.href = '/allPosts.html';
+      location.href = '/blog.html';
     },
     error: function(xhr, status, error) {
       console.error('DELETE request failed.');

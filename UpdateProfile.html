@@ -121,8 +121,12 @@
 												</div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<label class="label" for="#">Image URL</label>
-														<textarea name="message" class="form-control" id="formGroupExampleInput3" cols="30" rows="4" placeholder="Image"></textarea>
+														<label class="label" for="#">Image</label>
+														<form id="uploadForm" enctype="multipart/form-data">
+															<input type="file" id="formGroupExampleInput3" name="file" accept="image/*">
+								
+														  </form>
+											
 													</div>
 												</div>
 												<div class="col-md-12">

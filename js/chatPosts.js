@@ -44,7 +44,7 @@ $(document).ready(function () {
         //     <div class="col-md-4 d-flex ftco-animate">
         let temp_html = `
             <div class="col-md-4 d-flex" style="display:flex;">
-              <div class="blog-entry align-self-stretch">
+              <div class="blog-entry align-self-stretch" style="width: 500px;">
                 <a href="blog-single.html?id=${id}" class="block-20 rounded" style="background-image: url(${image});"></a>
                 <div class="text p-4">
                   <div class="meta mb-2">

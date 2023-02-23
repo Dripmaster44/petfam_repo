@@ -11,7 +11,7 @@ const headers = {
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
-fetch('http://127.0.0.1:5500/templates/blog-single.html?id=' + id, { headers })
+fetch('/blog-single.html?id=' + id, { headers })
   .then(response => {
     // 응답 처리
   })

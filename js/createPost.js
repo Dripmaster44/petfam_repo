@@ -3,7 +3,7 @@ const token = getToken('token'); // bearer 토큰 값 가져오기
 const headers = {
   'Authorization': `Bearer ${token}`,
 };
-fetch("createPost.html", { headers })
+fetch("PostMyPet.html", { headers })
   .then(response => {
     // 응답 처리
   })
@@ -28,14 +28,13 @@ fetch("createPost.html", { headers })
   
 
 
-$(document).ready(function() {
-    $('form').submit(function(event) {
-      event.preventDefault(); // 기본적인 form submit 기능을 막음
-  
+function createPost() {
+  localStorage.removeItem("imageUrl");
+  uploadImage().then(() => {
       // form에서 입력한 데이터 가져오기
       var title = $('#exampleFormControlInput1').val();
       var content = $('#exampleFormControlTextarea1').val();
-      var image = $('#exampleFormControlInput2').val();
+      let image = localStorage.getItem("imageUrl");
       var category = $('#exampleFormControlSelect1').val();
   
       const auth = getToken();
@@ -57,10 +56,44 @@ $(document).ready(function() {
           // 페이지 이동
           location.href = 'blog.html';
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-          // 서버로부터 오류 응답을 받았을 때 실행할 코드
-          console.log('글 작성에 실패했습니다: ' + textStatus + ' - ' + errorThrown);
+        error: function(xhr, status, error) {
+          console.error('POST is failed');
+          // handle error
         }
       });
     });
-  });
+  };
+
+
+  function uploadImage() {
+    return new Promise((resolve, reject) => {
+      const auth = getToken();
+  
+      const fileInput = document.getElementById("formGroupExampleInput3");
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+  
+      var settings = {
+        "url": "http://localhost:8080/upload",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {},
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": formData,
+        "beforeSend": function(xhr) {
+          xhr.setRequestHeader("Authorization", auth);
+        }
+      };
+  
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        localStorage.setItem("imageUrl", response); // 저장소에 이미지 URL 저장
+        resolve(); // 이미지 업로드 완료를 알림
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        reject(errorThrown); // 에러가 발생한 경우 Promise를 reject()로 반환
+      });
+    });
+  }

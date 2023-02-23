@@ -30,6 +30,40 @@ fetch("PostMyPet.html", { headers })
 
 function createPost() {
   localStorage.removeItem("imageUrl");
+  const fileInput = document.getElementById("formGroupExampleInput3");
+  if(!fileInput) {
+    localStorage.setItem("imageUrl", "");
+    var title = $('#exampleFormControlInput1').val();
+      var content = $('#exampleFormControlTextarea1').val();
+      let image = localStorage.getItem("imageUrl");
+      var category = $('#exampleFormControlSelect1').val();
+  
+      const auth = getToken();
+      console.log(auth);
+      // AJAX 요청 보내기
+      $.ajax({
+        url: 'http://localhost:8080/posts',
+        type: 'POST',
+        data: JSON.stringify({title: title, image: image, content: content, category: category}),
+        headers: {
+          'Content-Type': 'application/json' // 서버에서 지원하는 타입으로 변경
+        },
+        "beforeSend": function(xhr) {
+          xhr.setRequestHeader("Authorization", auth);
+        },
+        success: function(data) {
+          // 서버로부터 성공적인 응답을 받았을 때 실행할 코드
+          console.log('글이 성공적으로 작성되었습니다!');
+          // 페이지 이동
+          location.href = 'blog.html';
+        },
+        error: function(xhr, status, error) {
+          console.error('POST is failed');
+          // handle error
+        }
+      });
+  }
+  else {
   uploadImage().then(() => {
       // form에서 입력한 데이터 가져오기
       var title = $('#exampleFormControlInput1').val();
@@ -61,7 +95,7 @@ function createPost() {
           // handle error
         }
       });
-    });
+    });}
   };
 
 

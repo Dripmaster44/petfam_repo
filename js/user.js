@@ -7,6 +7,7 @@ function getUserNickname() {
 
     if (window.location.href === "blog-single.html") {
       const temp_html = `<h3>${response.nickname}</h3>`;
+
       $('#CommentNickname').append(temp_html);
     }
   });

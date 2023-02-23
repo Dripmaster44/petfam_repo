@@ -28,16 +28,15 @@ fetch("/updatePost.html", { headers })
   
 
 
-$(document).ready(function() {
-    $('form').submit(function(event) {
-      event.preventDefault(); // 기본적인 form submit 기능을 막음
-
+function updatePost(){
+localStorage.removeItem("imageUrl");
+  uploadImage().then(() => {
       const id=localStorage.getItem('id');
   
       // form에서 입력한 데이터 가져오기
       var title = $('#exampleFormControlInput1').val();
       var content = $('#exampleFormControlTextarea1').val();
-      var image = $('#exampleFormControlInput2').val();
+      let image = localStorage.getItem("imageUrl");
       var category = $('#exampleFormControlSelect1').val();
   
       const auth = getToken();
@@ -64,6 +63,38 @@ $(document).ready(function() {
           console.log('글 작성에 실패했습니다: ' + textStatus + ' - ' + errorThrown);
         }
       });
-    });
-  });
+    })};
   
+
+  function uploadImage() {
+    return new Promise((resolve, reject) => {
+      const auth = getToken();
+  
+      const fileInput = document.getElementById("formGroupExampleInput3");
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+  
+      var settings = {
+        "url": "http://localhost:8080/upload",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {},
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": formData,
+        "beforeSend": function(xhr) {
+          xhr.setRequestHeader("Authorization", auth);
+        }
+      };
+  
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        localStorage.setItem("imageUrl", response); // 저장소에 이미지 URL 저장
+        resolve(); // 이미지 업로드 완료를 알림
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        reject(errorThrown); // 에러가 발생한 경우 Promise를 reject()로 반환
+      });
+    });
+  }

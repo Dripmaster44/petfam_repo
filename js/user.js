@@ -83,47 +83,45 @@ function logout() {
 
 
 function profileUpdate() {
-  const auth = getToken();
-  uploadImage()
-  .then(function(s3Url) {
+  localStorage.removeItem("imageUrl");
+  uploadImage().then(() => {
+    const auth = getToken();
+    let nickname = $('#formGroupExampleInput').val();
+    let introduction = $('#formGroupExampleInput2').val();
+    let image = localStorage.getItem("imageUrl");
 
-    console.log(s3Url);
+    console.log(image);
+    var settings = {
+      "url": "http://localhost:8080/users/profiles",
+      "method": "PATCH",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify({
+        "nickname": nickname,
+        "introduction": introduction,
+        "image" : image
+      }),
+      "beforeSend": function(xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+      }
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response == "success"){
+        alert("프로필 수정 완료")
+        window.location.href = 'http://127.0.0.1:5501/MyProfile.html';
+      }
+    });
   })
-
-  let nickname = $('#formGroupExampleInput').val();
-  let introduction = $('#formGroupExampleInput2').val();
-  let image = s3Url;
-
-  console.log(image);
-  var settings = {
-    "url": "http://localhost:8080/users/profiles",
-    "method": "PATCH",
-    "timeout": 0,
-    "headers": {
-      "Content-Type": "application/json"
-    },
-    "data": JSON.stringify({
-      "nickname": nickname,
-      "introduction": introduction,
-      "image" : image
-    }),
-    "beforeSend": function(xhr) {
-      xhr.setRequestHeader("Authorization", auth);
-    }
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    if (response == "success"){
-      alert("프로필 수정 완료")
-      window.location.href = 'http://127.0.0.1:5501/MyProfile.html';
-    }
-  });
 }
 
 function uploadImage() {
-  const auth = getToken();
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
+    const auth = getToken();
+
     const fileInput = document.getElementById("formGroupExampleInput3");
     const file = fileInput.files[0];
     const formData = new FormData();
@@ -144,12 +142,15 @@ function uploadImage() {
     };
 
     $.ajax(settings).done(function (response) {
-      resolve(response);
-    }).fail(function (error) {
-      reject(error);
+      console.log(response);
+      localStorage.setItem("imageUrl", response); // 저장소에 이미지 URL 저장
+      resolve(); // 이미지 업로드 완료를 알림
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+      reject(errorThrown); // 에러가 발생한 경우 Promise를 reject()로 반환
     });
   });
 }
+
 
 
 function getAllUsers() {

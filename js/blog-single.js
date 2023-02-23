@@ -48,6 +48,7 @@ function petboast_detail() {
         // 본문
         console.log(response)
         const writer = response['writer']
+        const writerId = response['writerId']
         const title = response['title']
         const content = response['content']
         const image = response['image']
@@ -56,7 +57,7 @@ function petboast_detail() {
 
         let temp_html = `
             <p><img src="${image}" alt="missing image" class="img-fluid"></p>
-            <h2 class="mb-3">${title} <small style="font-size:15px;">${writer}</small></h2>
+            <h2 class="mb-3">${title} </h2><a href="GetProfile.html?id=${writerId}">${writer}</a>
             <p>${content}</p>
           </div>`
         let temp_html2 = `

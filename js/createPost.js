@@ -62,6 +62,7 @@ function createPost() {
           // handle error
         }
       });
+      return;
   }
   else {
   uploadImage().then(() => {

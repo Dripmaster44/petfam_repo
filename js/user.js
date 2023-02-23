@@ -84,6 +84,8 @@ function logout() {
 
 
 function profileUpdate() {
+  const fileInput = document.getElementById("formGroupExampleInput3");
+  if(fileInput && fileInput.files && fileInput.files[0]) {
   localStorage.removeItem("imageUrl");
   uploadImage().then(() => {
     const auth = getToken();
@@ -116,7 +118,39 @@ function profileUpdate() {
         window.location.href = 'http://127.0.0.1:5501/MyProfile.html';
       }
     });
-  })
+  })} else{
+    const auth = getToken();
+    let nickname = $('#formGroupExampleInput').val();
+    let introduction = $('#formGroupExampleInput2').val();
+    let image = "";
+
+    console.log(image);
+    var settings = {
+      "url": "http://localhost:8080/users/profiles",
+      "method": "PATCH",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify({
+        "nickname": nickname,
+        "introduction": introduction,
+        "image" : image
+      }),
+      "beforeSend": function(xhr) {
+        xhr.setRequestHeader("Authorization", auth);
+      }
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response == "success"){
+        alert("프로필 수정 완료")
+        window.location.href = 'http://127.0.0.1:5501/MyProfile.html';
+      }
+    });
+  }
+  
 }
 
 function uploadImage() {
@@ -151,6 +185,8 @@ function uploadImage() {
     });
   });
 }
+
+
 function getAllUsers() {
   sendAuthorizedRequest("http://localhost:8080/admin/users", "GET", function (response) {
     console.log(response);

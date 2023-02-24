@@ -34,6 +34,7 @@ $(document).ready(function () {
         let likes = rows[i]['likes'];
         let image = rows[i]['image'];
         let createdAt = rows[i]['createdAt'];
+        let view = rows[i]['view'];
 
         const year = createdAt[0]; // 2023
         const month = createdAt[1] - 1; // 1 (0부터 시작하므로 2월이면 1을 반환)
@@ -43,7 +44,7 @@ $(document).ready(function () {
         const formattedDate = dateObj.toLocaleString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase();
         //     <div class="col-md-4 d-flex ftco-animate">
         let temp_html = `
-            <div class="col-md-4 d-flex" style="display:flex;">
+            <div class="col-md-4 d-flex">
               <div class="blog-entry align-self-stretch" style="width: 500px;">
                 <a href="blog-single.html?id=${id}" class="block-20 rounded" style="background-image: url(${image});"></a>
                 <div class="text p-4">
@@ -51,8 +52,12 @@ $(document).ready(function () {
                     <div><a href="blog-single.html?id=${id}">${formattedDate}</a></div>
                     <div><a href="blog-single.html?id=${id}">${writer}</a></div>
                     <div><a href="blog-single.html?id=${id}" class="meta-chat">💚${likes}</a></div>
+                    <div><a href="blog-single.html?id=${id}" class="meta-chat">👀 ${view}</a></div>
                   </div>
+                    <div>
                     <h3 class="heading"><a href="blog-single.html?id=${id}">${title}</a></h3>
+                    </div>
+                    
                 </div>
               </div>
             </div>`;

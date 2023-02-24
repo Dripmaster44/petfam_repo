@@ -4,7 +4,7 @@ $(document).ready(function () {
   
   let currentPage = 0;
   let category = 'PET';
-  
+
   function petboast() {
     let url = 'http://localhost:8080/posts?page=' + currentPage + '&size=9';
   
@@ -34,6 +34,7 @@ $(document).ready(function () {
         let likes = rows[i]['likes'];
         let image = rows[i]['image'];
         let createdAt = rows[i]['createdAt'];
+        let view = rows[i]['view'];
 
         const year = createdAt[0]; // 2023
         const month = createdAt[1] - 1; // 1 (0부터 시작하므로 2월이면 1을 반환)
@@ -51,8 +52,12 @@ $(document).ready(function () {
                     <div><a href="blog-single.html?id=${id}">${formattedDate}</a></div>
                     <div><a href="blog-single.html?id=${id}">${writer}</a></div>
                     <div><a href="blog-single.html?id=${id}" class="meta-chat">💚${likes}</a></div>
+                    <div><a href="blog-single.html?id=${id}" class="meta-chat">👀 ${view}</a></div>
                   </div>
+                    <div>
                     <h3 class="heading"><a href="blog-single.html?id=${id}">${title}</a></h3>
+                    </div>
+                    
                 </div>
               </div>
             </div>`;

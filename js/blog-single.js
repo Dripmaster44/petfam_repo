@@ -1,5 +1,6 @@
 // 페이지 접속시 함수 호출하는 코드
 $(document).ready(function () {
+    cookie_save();
     petboast_detail();
 })
 
@@ -33,6 +34,39 @@ if(cookie !== -1){
 
 return auth;
 }
+
+// 조회수 관련 토큰
+function cookie_save(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get('id');
+  var cookieName = "alreadyViewCookie" + postId;
+  var cookies = document.cookie.split("; ");
+  var cookieValue = null;
+  for (var i = 0; i < cookies.length; i++) {
+    if (cookies[i].indexOf(cookieName) === 0) {
+      cookieValue = cookies[i].substring(cookieName.length + 1);
+      console.log(cookieValue)
+      break;
+    }
+  }
+  if (cookieValue === null) {
+    // 서버로 AJAX 요청을 보내서 쿠키를 생성합니다.
+    $.ajax({
+      url: '//localhost:8080/posts/views/' + postId,
+      type: "POST",
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function(data) {
+        // 쿠키 생성에 성공했다면, 쿠키를 설정합니다.
+        console.log(data)
+        var cookieDate = new Date();
+        cookieDate.setTime(cookieDate.getTime() + 24 * 60 * 60 * 1000); // 쿠키 유효시간은 하루입니다.
+        document.cookie = cookieName + "=" + postId + ";expires=" + cookieDate.toGMTString() + ";path=/";
+      }
+    });
+  }
+};
 
 // 데이터 불러오기
 function petboast_detail() {

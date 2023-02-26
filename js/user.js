@@ -276,3 +276,47 @@ function sendAuthorizedRequest(url, method, callback) {
       }
     });
 }
+
+function ck_id() {
+  const id = $('#username').val();
+
+$.ajax({
+  url: 'http://localhost:8080/users/id',
+  method: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify({
+    "username": id,
+    }),
+  success: function(response) {
+    console.log(response);
+    if(response == "success") {
+      alert('사용할수 있는 아이디입니다.')
+    } else {
+      alert('다른 아이디를 입력해주세요')
+    }
+  }
+});
+
+}
+
+function ck_nickname() {
+  const nickname = $('#nickname').val();
+
+  $.ajax({
+    url: 'http://localhost:8080/users/nickname',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      "nickname": nickname
+      }),
+    success: function(response) {
+      console.log(response);
+      if(response == "success") {
+        alert('사용할수 있는 닉네임입니다.')
+      } else {
+        alert('다른 닉네임를 입력해주세요')
+      }
+    }
+  });
+}
+

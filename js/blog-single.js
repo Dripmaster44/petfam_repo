@@ -144,7 +144,7 @@ function petboast_detail() {
                   <h3>${commentWriter}</h3>
                   <div class="meta" style="float:left; clear:left;">${formattedCreatedAt}</div>
                   <div class="tagcloud" style="float:right;">
-                    <a onclick="comment_open(${commentId})" style="cursor: pointer; color:black;" class="tag-cloud-link">수정하기</a>
+                    <a onclick="comment_open(${commentId}, '${commentContent}')" style="cursor: pointer; color:black;" class="tag-cloud-link">수정하기</a>
                     <a onclick="deleteComment(${commentId})" class="tag-cloud-link" style="cursor: pointer; color:black;">삭제하기</a>
                     <a ><button onclick="likeComment(${commentId})" style="background: none; border: none; padding: 0; font-size: inherit; cursor: pointer; color: red;">&#x2764;</button></a>
                     </div>
@@ -204,7 +204,7 @@ function petboast_detail() {
                       <h3>${reCommentWriter}</h3>
                       <div class="meta">${reformattedCreatedAt}</div>
                       <div class="tagcloud" style="float:right;">
-                        <a onclick="recomment_update_open(${recommentId})" style="cursor: pointer; color:black;" class="tag-cloud-link">수정하기</a>
+                        <a onclick="recomment_update_open(${recommentId}, '${reCommentContent}')" style="cursor: pointer; color:black;" class="tag-cloud-link">수정하기</a>
                         <a onclick="deleteReComment(${recommentId})" style="cursor: pointer; color:black;" class="tag-cloud-link">삭제하기</a>
                         <a onclick="likeReComment(${recommentId})"><button style="background: none; border: none; padding: 0; font-size: inherit; cursor: pointer; color: red;">&#x2764;</button></a>
                       </div>
@@ -498,8 +498,9 @@ function likePost(id){
 
 
 // 댓글 수정창 보이기
-function comment_open(commentId) {
+function comment_open(commentId, commentContent) {
   document.querySelector('.commentbox-'+commentId).style.display = 'block';
+  document.querySelector('#formGroupExampleInput4').value = commentContent;
 }
   
 // 댓글 수정창 닫기
@@ -518,8 +519,9 @@ function recomment_close(commentId) {
 }
 
 // 대댓글 수정창 보이기
-function recomment_update_open(recommentId) {
+function recomment_update_open(recommentId, reCommentContent) {
   document.querySelector('.recommentUpdateBox-'+recommentId).style.display = 'block';
+  document.querySelector('#formGroupExampleInput5').value = reCommentContent;
 }
   
 // 대댓글 수정창 닫기

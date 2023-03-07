@@ -4,6 +4,7 @@
     <title>Pet Sitting - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -56,8 +57,7 @@
 			let nickname = $('#nickname').val();
 
 			const regex1 = /^[a-z0-9]{4,10}$/;
-			const regex2 = /^(?=.*[a-zA-Z])?(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,15}$/;
-
+			const regex2 = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,15}$/;
 		  
 	  
 			if (username == '') {
@@ -81,7 +81,7 @@
 			}
 	  
 			var settings = {
-			  "url": "http://localhost:8080/users/signup",
+			  "url": "http://43.200.238.79:8080/users/signup",
 			  "method": "POST",
 			  "timeout": 0,
 			  "headers": {
@@ -97,7 +97,7 @@
 			$.ajax(settings).done(function (response,status) {
 			  if(response == 'success') {
 				alert("회원가입이 성공했습니다.")
-				window.location.href = 'http://127.0.0.1:5501/UserLogin.html';
+				window.location.href = 'http://petfam.netlify.app:5501/UserLogin.html';
 			  } else {
 				alert("회원가입이 완료되지 않았습니다 다시 시도해주세요.")
 			  }

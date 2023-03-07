@@ -55,7 +55,7 @@
 			let adminKey = $('#adminKey').val();
 
 			const regex1 = /^[a-z0-9]{4,10}$/;
-			const regex2 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,15}$/;
+			const regex2 = /^(?=.*[a-zA-Z])?(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,15}$/;
 	  
 			if (username == '') {
 			  alert('ID를 입력해주세요');

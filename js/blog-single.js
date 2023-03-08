@@ -52,7 +52,7 @@ function cookie_save(){
   if (cookieValue === null) {
     // 서버로 AJAX 요청을 보내서 쿠키를 생성합니다.
     $.ajax({
-      url: '//localhost:8080/posts/views/' + postId,
+      url: '//43.200.238.79:8080/posts/views/' + postId,
       type: "POST",
       xhrFields: {
         withCredentials: true
@@ -74,7 +74,7 @@ function petboast_detail() {
     const id = urlParams.get('id');
 
     $.ajax({
-      url: 'http://localhost:8080/posts/' + id,
+      url: 'http://43.200.238.79:8080/posts/' + id,
       type: 'GET',
       data: {},
       contentType: "application/json;",
@@ -255,7 +255,7 @@ function deletePost(){
   const auth = getToken();
   alert("게시글을 삭제합니다.")
   $.ajax({
-    url: 'http://localhost:8080/posts/' + id,
+    url: 'http://43.200.238.79:8080/posts/' + id,
     type: 'DELETE',
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);
@@ -281,7 +281,7 @@ function comment_register() {
   var content = $('#formGroupExampleInput22').val();
   // AJAX 요청 보내기
   $.ajax({
-    url: 'http://localhost:8080/posts/'+id+'/comments',
+    url: 'http://43.200.238.79:8080/posts/'+id+'/comments',
     type: 'POST',
     data: JSON.stringify({content: content}),
     headers: {
@@ -310,7 +310,7 @@ function updateComment(commentId){
   
     const auth = getToken();
     $.ajax({
-      url: 'http://localhost:8080/comments/' + commentId,
+      url: 'http://43.200.238.79:8080/comments/' + commentId,
       type: 'PATCH',
       data: JSON.stringify({content: content}),
       headers: {
@@ -338,7 +338,7 @@ function deleteComment(commentId){
   const auth = getToken();
   alert("댓글을 삭제합니다.")
   $.ajax({
-    url: 'http://localhost:8080/comments/' + commentId,
+    url: 'http://43.200.238.79:8080/comments/' + commentId,
     type: 'DELETE',
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);
@@ -363,7 +363,7 @@ function createReComment(commentId){
   
   var content = $('#formGroupExampleInput3').val();
   $.ajax({
-  url: 'http://localhost:8080/comments/'+commentId+'/recomments',
+  url: 'http://43.200.238.79:8080/comments/'+commentId+'/recomments',
   type: 'POST',
   data: JSON.stringify({content: content}),
   headers: {'Content-Type': 'application/json'},
@@ -387,7 +387,7 @@ function updateReComment(recommentId){
 
   const auth = getToken();
 $.ajax({
-  url: 'http://localhost:8080/recomments/' + recommentId,
+  url: 'http://43.200.238.79:8080/recomments/' + recommentId,
   type: 'PATCH',
   data: JSON.stringify({content: content}),
   headers: {
@@ -416,7 +416,7 @@ function deleteReComment(recommentId){
   const auth = getToken();
   alert("댓글을 삭제합니다.")
   $.ajax({
-    url: 'http://localhost:8080/recomments/' + recommentId,
+    url: 'http://43.200.238.79:8080/recomments/' + recommentId,
     type: 'DELETE',
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);
@@ -436,7 +436,7 @@ function deleteReComment(recommentId){
 function likePost(id){
   const auth = getToken();
   $.ajax({
-    url: 'http://localhost:8080/posts/' + id + '/like',
+    url: 'http://43.200.238.79:8080/posts/' + id + '/like',
     type: 'POST',
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);
@@ -457,7 +457,7 @@ function likePost(id){
   function likeComment(commentId){
   const auth = getToken();
   $.ajax({
-    url: 'http://localhost:8080/comments/' + commentId + '/like',
+    url: 'http://43.200.238.79:8080/comments/' + commentId + '/like',
     type: 'POST',
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);
@@ -478,7 +478,7 @@ function likePost(id){
   function likeReComment(recommentId){
   const auth = getToken();
   $.ajax({
-    url: 'http://localhost:8080/recomments/' + recommentId + '/like',
+    url: 'http://43.200.238.79:8080/recomments/' + recommentId + '/like',
     type: 'POST',
     "beforeSend": function(xhr) {
       xhr.setRequestHeader("Authorization", auth);

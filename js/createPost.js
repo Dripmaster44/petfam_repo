@@ -44,7 +44,7 @@ function createPost() {
       console.log(auth);
       // AJAX 요청 보내기
       $.ajax({
-        url: 'http://localhost:8080/posts',
+        url: 'http://43.200.238.79:8080/posts',
         type: 'POST',
         data: JSON.stringify({title: title, image: image, content: content, category: category}),
         headers: {
@@ -75,7 +75,7 @@ function createPost() {
         console.log(auth);
         // AJAX 요청 보내기
         $.ajax({
-          url: 'http://localhost:8080/posts',
+          url: 'http://43.200.238.79:8080/posts',
           type: 'POST',
           data: JSON.stringify({title: title, image: image, content: content, category: category}),
           headers: {
@@ -109,7 +109,7 @@ function createPost() {
       formData.append("file", file);
   
       var settings = {
-        "url": "http://localhost:8080/upload",
+        "url": "http://43.200.238.79:8080/upload",
         "method": "POST",
         "timeout": 0,
         "headers": {},

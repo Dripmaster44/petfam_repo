@@ -6,7 +6,7 @@ $(document).ready(function () {
   let category = 'PET';
 
   function petboast() {
-    let url = 'http://localhost:8080/posts?page=' + currentPage + '&size=9';
+    let url = 'http://43.200.238.79:8080/posts?page=' + currentPage + '&size=9';
   
     if (category) {
       url += '&category=' + category;

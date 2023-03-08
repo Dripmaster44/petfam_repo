@@ -71,7 +71,7 @@ function logout() {
     console.log(response);
     if (response == 'success'){
       alert('로그아웃')
-      window.location.href = 'http://http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/:5501/index.html';
+      window.location.href = 'http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/index.html';
       document.cookie =
               'Authorization' + '=' + "" + ';path=/'; 
         document.cookie = 
@@ -115,7 +115,7 @@ function profileUpdate() {
       console.log(response);
       if (response == "success"){
         alert("프로필 수정 완료")
-        window.location.href = 'http://http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/:5501/MyProfile.html';
+        window.location.href = 'http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/MyProfile.html';
       }
     });
   })} else{
@@ -146,7 +146,7 @@ function profileUpdate() {
       console.log(response);
       if (response == "success"){
         alert("프로필 수정 완료")
-        window.location.href = 'http://http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/:5501/MyProfile.html';
+        window.location.href = 'http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/MyProfile.html';
       }
     });
   }

@@ -273,15 +273,6 @@ function deletePost(){
 
 // 댓글 등록
 function comment_register() {
-  let cookieData = document.cookie;
-  let cookie = cookieData.indexOf('Authorization');
-
-  if (cookie === -1) {
-    // 로그인한 경우 링크 처리
-    alert("로그인이 필요합니다.");
-    return;
-  }
-  
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
@@ -366,14 +357,6 @@ function deleteComment(commentId){
 
 // 댓글에 대댓글 등록
 function createReComment(commentId){
-  let cookieData = document.cookie;
-  let cookie = cookieData.indexOf('Authorization');
-
-  if (cookie === -1) {
-    // 로그인한 경우 링크 처리
-    alert("로그인이 필요합니다.");
-    return;
-  }
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
   const auth = getToken();

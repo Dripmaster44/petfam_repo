@@ -23,9 +23,7 @@ fetch("PostMyPet.html", { headers })
         auth = cookieData.substring(cookie, end);
     }
 
-    var isLoggedIn = (document.cookie.indexOf("login=true") !== -1);
-
-    if (isLoggedIn) {
+    if (cookie !== -1) {
       // 로그인한 경우 링크 처리
       window.location.href = "PostMyPet.html";
     } else {

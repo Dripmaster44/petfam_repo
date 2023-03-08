@@ -22,15 +22,6 @@ fetch("PostMyPet.html", { headers })
         if(end === -1)end = cookieData.length;
         auth = cookieData.substring(cookie, end);
     }
-
-    if (cookie !== -1) {
-      // 로그인한 경우 링크 처리
-      window.location.href = "PostMyPet.html";
-    } else {
-      // 로그인하지 않은 경우 alert 메시지 표시
-      alert("로그인이 필요합니다.");
-      window.location.href = "UserLogin.html"
-    }
   
     return auth;
   }

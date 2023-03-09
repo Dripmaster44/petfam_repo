@@ -77,7 +77,7 @@ function logout() {
       document.cookie = 
             'Refresh_authorization' + '=' + "" + ';path=/';
       document.cookie = 
-            'login=true' + '=' + -1 + ';path=/';
+            'login' + '=' + 'false' + ';path=/';
 
     } else {
       alert('로그아웃 실패')

@@ -24,7 +24,7 @@ fetch("/updatePost.html", { headers })
     }
 
     // var isLoggedIn = (document.cookie.indexOf("login") == 'true');
-    if (!document.cookie.indexOf("login") == 'true') {
+    if (!document.cookie.indexOf("login") === 'true') {
       // 로그인 하지 않은 경우
       alert("로그인이 필요합니다.");
       window.location.href = "UserLogin.html"

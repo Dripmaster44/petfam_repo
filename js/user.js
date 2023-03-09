@@ -74,8 +74,11 @@ function logout() {
       window.location.href = 'http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/index.html';
       document.cookie =
               'Authorization' + '=' + "" + ';path=/'; 
-        document.cookie = 
-              'Refresh_authorization' + '=' + "" + ';path=/';
+      document.cookie = 
+            'Refresh_authorization' + '=' + "" + ';path=/';
+      document.cookie = 
+            'login=true' + '=' + -1 + ';path=/';
+
     } else {
       alert('로그아웃 실패')
     }

@@ -70,7 +70,7 @@ function cookie_save(){
 // 비 로그인시 댓글, 대댓글 작성 불가능
 document.getElementById('formGroupExampleInput22').addEventListener('keyup', function(event) {
   // var isLoggedIn = (document.cookie.indexOf("login") == 'true');
-  if (!document.cookie.indexOf("login") === 'true') {
+  if (cookieData.indexOf("login") === -1) {
     // 로그인 하지 않은 경우
     alert("로그인 후 작성할 수 있습니다.");
   }
@@ -78,7 +78,7 @@ document.getElementById('formGroupExampleInput22').addEventListener('keyup', fun
 
 $(document).on('keyup', '#formGroupExampleInput3', function(event) {
   // var isLoggedIn = (document.cookie.indexOf("login") == 'true');
-  if (!document.cookie.indexOf("login") === 'true') {
+  if (cookieData.indexOf("login") === -1) {
     // 로그인 하지 않은 경우
     alert("로그인 후 작성할 수 있습니다.");
   }
@@ -86,7 +86,7 @@ $(document).on('keyup', '#formGroupExampleInput3', function(event) {
 
 $(document).on('keyup', '#formGroupExampleInput4', function(event) {
   // var isLoggedIn = (document.cookie.indexOf("login") == 'true');
-  if (!document.cookie.indexOf("login") === 'true') {
+  if (cookieData.indexOf("login") === -1) {
     // 로그인 하지 않은 경우
     alert("로그인 후 작성할 수 있습니다.");
   }
@@ -94,7 +94,7 @@ $(document).on('keyup', '#formGroupExampleInput4', function(event) {
 
 $(document).on('keyup', '#formGroupExampleInput5', function(event) {
   // var isLoggedIn = (document.cookie.indexOf("login") == 'true');
-  if (!document.cookie.indexOf("login") === 'true') {
+  if (cookieData.indexOf("login") === -1) {
     // 로그인 하지 않은 경우
     alert("로그인 후 작성할 수 있습니다.");
   }

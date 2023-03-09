@@ -31,11 +31,6 @@ fetch("/updatePost.html", { headers })
 
 function updatePost(){
   const cookieValue = getToken();
-  if (cookieValue == "") {
-    // 로그인 하지 않은 경우
-    alert("로그인이 필요합니다.");
-    window.location.href = "UserLogin.html"
-  }
 
   const fileInput = document.getElementById("formGroupExampleInput3");
   const id=localStorage.getItem('id');

@@ -24,13 +24,14 @@
     <link rel="stylesheet" href="css/style.css">
     <script>
 		window.onload = function() {
+		const cookieValue = getToken();
 		if (cookieValue == "") {
 			// 로그인 하지 않은 경우
 			alert("로그인이 필요합니다.");
 			window.location.href = "UserLogin.html"
 			}
 		  getUserNickname();
-		  const cookieValue = getToken();
+
 			if (cookieValue== "") {
 			  document.getElementById("main-item-signup").style.display = "inline";
 			  document.getElementById("main-item-welcome").style.display = "none";

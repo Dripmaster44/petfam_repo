@@ -22,6 +22,14 @@ fetch("PostMyPet.html", { headers })
         if(end === -1)end = cookieData.length;
         auth = cookieData.substring(cookie, end);
     }
+
+    var isLoggedIn = (document.cookie.indexOf("login=true") !== -1);
+
+    if (!isLoggedIn) {
+      // 로그인 하지 않은 경우
+      alert("로그인이 필요합니다.");
+      window.location.href = "UserLogin.html"
+    }
   
     return auth;
   }

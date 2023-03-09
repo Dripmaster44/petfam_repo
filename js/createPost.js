@@ -23,13 +23,6 @@ fetch("PostMyPet.html", { headers })
         auth = cookieData.substring(cookie, end);
     }
 
-    // var isLoggedIn = (document.cookie.indexOf("login") == 'true');
-
-    if (cookieData.indexOf("login") === -1) {
-      // 로그인 하지 않은 경우
-      alert("로그인이 필요합니다.");
-      window.location.href = "UserLogin.html"
-    }
   
     return auth;
   }
@@ -37,6 +30,12 @@ fetch("PostMyPet.html", { headers })
 
 
 function createPost() {
+  const cookieValue = getToken();
+  if (cookieValue == "") {
+    // 로그인 하지 않은 경우
+    alert("로그인이 필요합니다.");
+    window.location.href = "UserLogin.html"
+  }
   const fileInput = document.getElementById("formGroupExampleInput3");
 
   if(fileInput && fileInput.files && fileInput.files[0]) {

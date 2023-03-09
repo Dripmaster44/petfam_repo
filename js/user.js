@@ -76,7 +76,6 @@ function logout() {
               'Authorization' + '=' + "" + ';path=/'; 
       document.cookie = 
             'Refresh_authorization' + '=' + "" + ';path=/';
-      document.cookie = 'login' + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=" + path;
 
     } else {
       alert('로그아웃 실패')

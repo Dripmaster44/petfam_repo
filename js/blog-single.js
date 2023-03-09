@@ -67,6 +67,40 @@ function cookie_save(){
   }
 };
 
+// 비 로그인시 댓글, 대댓글 작성 불가능
+document.getElementById('formGroupExampleInput22').addEventListener('keyup', function(event) {
+  var isLoggedIn = (document.cookie.indexOf("login=true") !== -1);
+  if (!isLoggedIn) {
+    // 로그인 하지 않은 경우
+    alert("로그인 후 작성할 수 있습니다.");
+  }
+})
+
+$(document).on('keyup', '#formGroupExampleInput3', function(event) {
+  var isLoggedIn = (document.cookie.indexOf("login=true") !== -1);
+  if (!isLoggedIn) {
+    // 로그인 하지 않은 경우
+    alert("로그인 후 작성할 수 있습니다.");
+  }
+});
+
+$(document).on('keyup', '#formGroupExampleInput4', function(event) {
+  var isLoggedIn = (document.cookie.indexOf("login=true") !== -1);
+  if (!isLoggedIn) {
+    // 로그인 하지 않은 경우
+    alert("로그인 후 작성할 수 있습니다.");
+  }
+});
+
+$(document).on('keyup', '#formGroupExampleInput5', function(event) {
+  var isLoggedIn = (document.cookie.indexOf("login=true") !== -1);
+  if (!isLoggedIn) {
+    // 로그인 하지 않은 경우
+    alert("로그인 후 작성할 수 있습니다.");
+  }
+});
+
+
 // 데이터 불러오기
 function petboast_detail() {
     const urlParams = new URLSearchParams(window.location.search);

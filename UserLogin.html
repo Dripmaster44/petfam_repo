@@ -65,7 +65,7 @@
 		  
 			$.ajax({
 				type: "POST",
-				url: "https://43.200.238.79:8080/users/signin",
+				url: "http://43.200.238.79:8080/users/signin",
 				contentType: "application/json",
 				data: JSON.stringify({username: username, password: password}),
 				xhrFields: {
@@ -92,7 +92,6 @@
 				  alert('서버와 통신 중 에러가 발생했습니다.');
 				}
 			  });
-			  
 
 		  }
 	</script>

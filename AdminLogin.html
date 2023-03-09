@@ -67,27 +67,34 @@
 			}
 		
 			$.ajax({
-			  type: "POST",
-			  url: "http://43.200.238.79:8080/users/admin/signin",
-			  contentType: "application/json",
-			  data: JSON.stringify({username: username, password: password, adminKey: adminKey}),
-			  success: function (response, status, xhr) {
-				if(response === 'success') {
-		
+				type: "POST",
+				url: "http://43.200.238.79:8080/users/admin/signin",
+				contentType: "application/json",
+				data: JSON.stringify({username: username, password: password,adminKey: adminKey}),
+				xhrFields: {
+				  withCredentials: true
+				}
+			  })
+			  .done(function(response, statuㄴ, xhr) {
+				if (response === 'success') {
 				  document.cookie =
-					  'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/';
-		
+					'Authorization' + '=' + xhr.getResponseHeader('Authorization') + ';path=/';
 				  document.cookie = 
-					  'Refresh_authorization' + '=' + xhr.getResponseHeader('Refresh_authorization') + ';path=/';
-		
-					  
+					'Refresh_authorization' + '=' + xhr.getResponseHeader('Refresh_authorization') + ';path=/';
 				  window.location.href = 'http://petfam-frontend.s3-website.ap-northeast-2.amazonaws.com/index.html';
 				} else {
-				  alert('로그인에 실패하셨습니다. 다시 로그인해 주세요.')
+				  alert('아이디와 비밀번호를 확인해주세요');
 				  window.location.reload();
 				}
-			  }
-			})
+			  })
+			  .fail(function(xhr, status, error) {
+				if (xhr.status === 400) {
+				  alert('아이디와 비밀번호를 확인해주세요');
+				  window.location.reload();
+				} else {
+				  alert('서버와 통신 중 에러가 발생했습니다.');
+				}
+			  });
 		  }
 	</script>
 	

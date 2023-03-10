@@ -100,11 +100,20 @@ $(document).on('keyup', '#formGroupExampleInput5', function(event) {
   }
 });
 
+// 로그인 한 사용자의 경우 nickname비교
+function getLoggedInUserNickname(callback){
+  sendAuthorizedRequest("http://43.200.238.79:8080/users/profiles", "GET", function (response) {
+      var nickname = response.nickname;
+      callback(nickname);
+  });
+  }
+
 
 // 데이터 불러오기
 function petboast_detail() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
+    const nickname = getLoggedInUserNickname();
 
     $.ajax({
       url: 'http://43.200.238.79:8080/posts/' + id,
@@ -129,8 +138,8 @@ function petboast_detail() {
           </div>`
         let temp_html2 = `
               <div>
-                <a href="#" onclick="updatePost('${title}','${content}','${image}','${id}')" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer;">수정하기</a>
-                <a onclick="deletePost()" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer;">삭제하기</a>
+                <a id="update-button" href="#" onclick="updatePost('${title}','${content}','${image}','${id}')" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">수정하기</a>
+                <a id="delete-button" onclick="deletePost()" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">삭제하기</a>
               </div>
               <a onclick="likePost(${id})" style="cursor: pointer; margin-left: 5px;"><button style="background: none; border: none; padding: 0; cursor: pointer; font-size: 1em; color: red;">&#x2764;</button></a>
               <a class="tag-cloud-link" style="font-size: 1em; margin-left: 5px; color: black;">${likes}
@@ -139,6 +148,12 @@ function petboast_detail() {
             `
         $('#post-detail').append(temp_html);
         $('#post-detail2').append(temp_html2);
+
+        getLoggedInUserNickname(function(nickname) {
+          if (writer === nickname) {
+            $('#update-button').show();
+            $('#delete-button').show();
+          }});
 
             // 댓글
             for(let i=0; i< response.comments.length; i++){
@@ -151,11 +166,6 @@ function petboast_detail() {
                 const reComments = comment.reComments;
                 let commentLength = response.comments.length;
                 let reCommentLength = reComments.length;
-
-                // 댓글 개수 출력
-                // const totalLength = commentLength - reCommentLength;
-                // const temp_html_commentLength = `${totalLength}`;
-                // $('#post-commentLength').append(temp_html_commentLength);
 
                 const year = commentCreatedAt[0];
                 const month = commentCreatedAt[1] - 1;
@@ -177,8 +187,8 @@ function petboast_detail() {
                   <h3>${commentWriter}</h3>
                   <div class="meta" style="float:left; clear:left;">${formattedCreatedAt}</div>
                   <div class="tagcloud" style="float:right;">
-                    <a onclick="comment_open(${commentId}, '${commentContent}')" style="cursor: pointer; color:black;" class="tag-cloud-link">수정하기</a>
-                    <a onclick="deleteComment(${commentId})" class="tag-cloud-link" style="cursor: pointer; color:black;">삭제하기</a>
+                    <a id="update-comment-${commentId}" onclick="comment_open(${commentId}, '${commentContent}')" style="cursor: pointer; color:black; display:none;" class="tag-cloud-link">수정하기</a>
+                    <a id="delete-comment-${commentId}" onclick="deleteComment(${commentId})" class="tag-cloud-link" style="cursor: pointer; color:black; display:none;">삭제하기</a>
                     <a ><button onclick="likeComment(${commentId})" style="background: none; border: none; padding: 0; font-size: inherit; cursor: pointer; color: red;">&#x2764;</button></a>
                     </div>
                     <div style="clear:both;"></div>
@@ -203,6 +213,13 @@ function petboast_detail() {
                     <button onclick="recomment_close(${commentId})" type="button" class="btn-close" aria-label="Close" style="width: 10px; height: 10px;"></button></p>
                     </div></div></div>`
                 $('#comment-list').append(temp_html_commentList);
+
+                getLoggedInUserNickname(function(nickname) {
+                  if (commentWriter === nickname) {
+                    $('#update-comment-' + commentId).show();
+                    $('#delete-comment-' + commentId).show();
+                  }
+                });
                     
 
                 // 대댓글
@@ -237,8 +254,8 @@ function petboast_detail() {
                       <h3>${reCommentWriter}</h3>
                       <div class="meta">${reformattedCreatedAt}</div>
                       <div class="tagcloud" style="float:right;">
-                        <a onclick="recomment_update_open(${recommentId}, '${reCommentContent}')" style="cursor: pointer; color:black;" class="tag-cloud-link">수정하기</a>
-                        <a onclick="deleteReComment(${recommentId})" style="cursor: pointer; color:black;" class="tag-cloud-link">삭제하기</a>
+                        <a id="update-recomment-${recommentId}" onclick="recomment_update_open(${recommentId}, '${reCommentContent}')" style="cursor: pointer; color:black; display:none;" class="tag-cloud-link">수정하기</a>
+                        <a id="delete-recomment-${recommentId}" onclick="deleteReComment(${recommentId})" style="cursor: pointer; color:black; display:none;" class="tag-cloud-link">삭제하기</a>
                         <a onclick="likeReComment(${recommentId})"><button style="background: none; border: none; padding: 0; font-size: inherit; cursor: pointer; color: red;">&#x2764;</button></a>
                       </div>
                       <p>${reCommentContent}</p>
@@ -259,6 +276,12 @@ function petboast_detail() {
                   </li>
                     `
                     $('#comment-list').append(temp_html_recommentList);
+                    
+                    getLoggedInUserNickname(function(nickname) {
+                      if (reCommentWriter === nickname) {
+                        $('#update-recomment-'+ recommentId).show();
+                        $('#delete-recomment-'+ recommentId).show();
+                      }});
                 }
               
               }

@@ -121,8 +121,6 @@ function IsAdmin(callback){
 function petboast_detail() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-    const nickname = getLoggedInUserNickname();
-    const isRoleAdmin = getIsAdmin();
 
     $.ajax({
       url: 'http://43.200.238.79:8080/posts/' + id,

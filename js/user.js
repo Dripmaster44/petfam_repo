@@ -90,7 +90,7 @@ function profileUpdate() {
   localStorage.removeItem("imageUrl");
   uploadImage().then(() => {
     const auth = getToken();
-    let nickname = $('#nickname').val();
+    let nickname = $('#formGroupExampleInput').val();
     let introduction = $('#formGroupExampleInput2').val();
     let image = localStorage.getItem("imageUrl");
 
@@ -302,6 +302,27 @@ $.ajax({
 
 function ck_nickname() {
   const nickname = $('#nickname').val();
+
+  $.ajax({
+    url: 'http://43.200.238.79:8080/users/nickname',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      "nickname": nickname
+      }),
+    success: function(response) {
+      console.log(response);
+      if(response == "success") {
+        alert('사용할수 있는 닉네임입니다.')
+      } else {
+        alert('다른 닉네임를 입력해주세요')
+      }
+    }
+  });
+}
+
+function ck_nickname2() {
+  const nickname = $('#formGroupExampleInput').val();
 
   $.ajax({
     url: 'http://43.200.238.79:8080/users/nickname',

@@ -90,7 +90,7 @@ function profileUpdate() {
   localStorage.removeItem("imageUrl");
   uploadImage().then(() => {
     const auth = getToken();
-    let nickname = $('#formGroupExampleInput').val();
+    let nickname = $('#nickname').val();
     let introduction = $('#formGroupExampleInput2').val();
     let image = localStorage.getItem("imageUrl");
 

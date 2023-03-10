@@ -130,7 +130,6 @@ function petboast_detail() {
       success: function (response) {
         // 본문
         console.log(response)
-        const postId = response['id']
         const writer = response['writer']
         const writerId = response['writerId']
         const title = response['title']
@@ -146,8 +145,8 @@ function petboast_detail() {
           </div>`
         let temp_html2 = `
               <div>
-                <a id="update-button-${postId}" href="#" onclick="updatePost('${title}','${content}','${image}','${id}')" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">수정하기</a>
-                <a id="delete-button-${postId}" onclick="deletePost()" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">삭제하기</a>
+                <a id="update-button" href="#" onclick="updatePost('${title}','${content}','${image}','${id}')" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">수정하기</a>
+                <a id="delete-button" onclick="deletePost()" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">삭제하기</a>
               </div>
               <a onclick="likePost(${id})" style="cursor: pointer; margin-left: 5px;"><button style="background: none; border: none; padding: 0; cursor: pointer; font-size: 1em; color: red;">&#x2764;</button></a>
               <a class="tag-cloud-link" style="font-size: 1em; margin-left: 5px; color: black;">${likes}

@@ -108,12 +108,21 @@ function getLoggedInUserNickname(callback){
   });
   }
 
+// 관리자 아이디임을 알아보기
+function IsAdmin(callback){
+  sendAuthorizedRequest("http://43.200.238.79:8080/users/profiles", "GET", function (response) {
+    var isRoleAdmin = response.role === "ROLE_ADMIN";
+    callback(isRoleAdmin); // isRoleAdmin 값을 콜백 함수의 인자로 전달
+})
+}
+
 
 // 데이터 불러오기
 function petboast_detail() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const nickname = getLoggedInUserNickname();
+    const isRoleAdmin = getIsAdmin();
 
     $.ajax({
       url: 'http://43.200.238.79:8080/posts/' + id,
@@ -123,6 +132,7 @@ function petboast_detail() {
       success: function (response) {
         // 본문
         console.log(response)
+        const postId = response['id']
         const writer = response['writer']
         const writerId = response['writerId']
         const title = response['title']
@@ -138,8 +148,8 @@ function petboast_detail() {
           </div>`
         let temp_html2 = `
               <div>
-                <a id="update-button" href="#" onclick="updatePost('${title}','${content}','${image}','${id}')" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">수정하기</a>
-                <a id="delete-button" onclick="deletePost()" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">삭제하기</a>
+                <a id="update-button-${postId}" href="#" onclick="updatePost('${title}','${content}','${image}','${id}')" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">수정하기</a>
+                <a id="delete-button-${postId}" onclick="deletePost()" class="tag-cloud-link" style="font-size: 13px; color:black; cursor: pointer; display:none;">삭제하기</a>
               </div>
               <a onclick="likePost(${id})" style="cursor: pointer; margin-left: 5px;"><button style="background: none; border: none; padding: 0; cursor: pointer; font-size: 1em; color: red;">&#x2764;</button></a>
               <a class="tag-cloud-link" style="font-size: 1em; margin-left: 5px; color: black;">${likes}
@@ -155,6 +165,12 @@ function petboast_detail() {
             $('#delete-button').show();
           }});
 
+        IsAdmin(function(isRoleAdmin) {
+          if (isRoleAdmin === true) {
+            $('#update-button').show();
+            $('#delete-button').show();
+          }
+        });
             // 댓글
             for(let i=0; i< response.comments.length; i++){
                 const comment = response.comments[i];
@@ -216,6 +232,12 @@ function petboast_detail() {
 
                 getLoggedInUserNickname(function(nickname) {
                   if (commentWriter === nickname) {
+                    $('#update-comment-' + commentId).show();
+                    $('#delete-comment-' + commentId).show();
+                  }});
+      
+                IsAdmin(function(isRoleAdmin) {
+                  if (isRoleAdmin === true) {
                     $('#update-comment-' + commentId).show();
                     $('#delete-comment-' + commentId).show();
                   }
@@ -282,6 +304,13 @@ function petboast_detail() {
                         $('#update-recomment-'+ recommentId).show();
                         $('#delete-recomment-'+ recommentId).show();
                       }});
+          
+                    IsAdmin(function(isRoleAdmin) {
+                      if (isRoleAdmin === true) {
+                        $('#update-recomment-'+ recommentId).show();
+                        $('#delete-recomment-'+ recommentId).show();
+                      }
+                    });
                 }
               
               }
